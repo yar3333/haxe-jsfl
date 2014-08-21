@@ -1,9 +1,5 @@
 package jsfl;
 
-#if jsfl
-#else error
-#end
-
 @:native("fl") extern class Flash
 {
 	public static var actionsPanel : ActionsPanel;
