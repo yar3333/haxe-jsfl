@@ -2,6 +2,13 @@ package jsfl;
 
 typedef Timeline =
 {
+	var currentFrame : Int;
+	var currentLayer : Int;
+	var frameCount : Int;
+	var layerCount : Int;
+	var layers : Array<Layer>;
+	var name : String;
+	
 	function addMotionGuide() : Int;
 	function addNewLayer(?name:String, ?laterType:String, ?bAddAbove:Bool) : Int;
 	function clearFrames(?startFrameIndex:Int, ?endFrameIndex:Int) : Void;
@@ -12,13 +19,10 @@ typedef Timeline =
 	function copyMotion() : Void;
 	function copyMotionAsAS3() : Void;
 	function createMotionTween(?startFrameIndex:Int, ?endFrameIndex:Int) : Void;
-	var currentFrame : Int;
-	var currentLayer : Int;
 	function cutFrames(?startFrameIndex:Int, ?endFrameIndex:Int) : Void;
 	function deleteLayer(?index:Int) : Void;
 	function expandFolder(bExpand:Bool, ?bRecurseNestedParents:Bool, ?index:Int) : Void;
 	function findLayerIndex(name:String) : Array<Int>;
-	var frameCount : Int;
 	function getFrameProperty(property:String, ?startFrameIndex:Int, ?endFrameIndex:Int) : Dynamic;
 	function getLayerProperty(property:String) : Dynamic;
 	function getSelectedFrames() : Array<Int>;
@@ -26,9 +30,6 @@ typedef Timeline =
 	function insertBlankKeyframe(?frameNumIndex:Int) : Void;
 	function insertFrames(?numFrames:Int, ?bAllLayers:Bool, ?frameNumIndex:Int) : Void;
 	function insertKeyframe(?frameNumIndex:Int) : Void;
-	var layerCount : Int;
-	var layers : Array<Layer>;
-	var name : String;
 	function pasteFrames(?startFrameIndex:Int, ?endFrameIndex:Int) : Void;
 	function pasteMotion() : Void;
 	function removeFrames(?startFrameIndex:Int, ?endFrameIndex:Int) : Void;
