@@ -1,5 +1,5 @@
 package jsfl;
 
 typedef FolderItem =
-{> Item,
+{>Item,
 }

@@ -1,6 +1,6 @@
 package jsfl;
 
-extern class XMLUI
+typedef XMLUI =
 {
 	function accept() : Void;
 	function cancel() : Void;

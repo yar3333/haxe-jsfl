@@ -1,8 +1,10 @@
 package jsfl;
 
-extern class Contour
+typedef Contour =
 {
-	function getHalfEdge() : HalfEdge;
+	var fill : Fill;
 	var interior : Bool;
 	var orientation : Int;
+	
+	function getHalfEdge() : HalfEdge;
 }

@@ -1,6 +1,6 @@
 package jsfl;
 
-extern class Library
+typedef Library =
 {
 	var items : Array<Item>;
 	

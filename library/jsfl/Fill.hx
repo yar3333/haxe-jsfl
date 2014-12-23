@@ -2,8 +2,10 @@ package jsfl;
 
 typedef Fill =
 {
+	var bitmapIsClipped : Bool;
+	var bitmapPath : String;
 	var color : Dynamic;
-	var colorArray : Array<Int>;
+	var colorArray : Array<Dynamic>;
 	var focalPoint : Int;
 	var linearRGB : Bool;
 	var matrix : Matrix;

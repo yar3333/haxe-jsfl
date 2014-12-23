@@ -3,9 +3,10 @@ package jsfl;
 typedef ToolObj =
 {
 	var depth : Int;
-	function enablePIControl(control:String, bEnable:Bool) : Void;
 	var iconID : Int;
 	var position : Int;
+	
+	function enablePIControl(control:String, bEnable:Bool) : Void;
 	function setIcon(file:String) : Void;
 	function setMenuString(menuStr:String) : Void;
 	function setOptionsFile(xmlFile:String) : Void;

@@ -1,6 +1,6 @@
 package jsfl;
 
 typedef ComponentInstance =
-{> SymbolInstance,
+{>SymbolInstance,
 	var parameters : Array<Parameter>;
 }

@@ -1,7 +1,7 @@
 package jsfl;
 
-extern class TextRun
+typedef TextRun =
 {
+	var textAttrs : String;
 	var characters : String;
-	var textAttrs : TextAttrs;
 }

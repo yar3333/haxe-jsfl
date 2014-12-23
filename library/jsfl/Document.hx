@@ -1,6 +1,6 @@
 package jsfl;
 
-extern class Document
+typedef Document =
 {
 	var accName : String;
 	var as3AutoDeclare : Bool;
@@ -25,6 +25,7 @@ extern class Document
 	var livePreview : Bool;
 	var name : String;
 	var path : String;
+	var pathURI : String;
 	var publishProfiles : Array<String>;
 	var screenOutline : ScreenOutline;
 	var selection : Array<Dynamic>;
@@ -33,7 +34,7 @@ extern class Document
 	var timelines : Array<Timeline>;
 	var viewMatrix : Matrix;
 	var width : Int;
-	var zoomFactor : Int;
+	var zoomFactor : Float;
 	
 	function addDataToDocument(name:String, type:String, data:Dynamic) : Void;
 	function addDataToSelection(name:String, type:String, data:Dynamic) : Void;
@@ -41,9 +42,11 @@ extern class Document
 	function addItem(position:JSFLPoint, item:Item) : Bool;
 	function addNewLine(startPoint:JSFLPoint, endPoint:JSFLPoint) : Void;
 	function addNewOval(boundingRectangle:JSFLRect, ?bSuppressFill:Bool, ?bSuppressStroke:Bool) : Void;
+	function addNewPrimitiveOval(boundingRectangle:JSFLRect, ?bSuppressFill:Bool, ?bSuppressStroke:Bool) : Void;
+	function addNewPrimitiveRectangle(rect:JSFLRect, roundness:Int, ?bSuppressFill:Bool, ?bSuppressStroke:Bool) : Void;
 	function addNewPublishProfile(?profileName:String) : Int;
-	function addNewRectangle(boundingRectangle:JSFLRect, roundess:Int, ?bSuppressFill:Bool, ?bSuppressStroke:Bool) : Void;
-	function addNewScene(?name:String) : Void;
+	function addNewRectangle(boundingRectangle:JSFLRect, roundness:Int, ?bSuppressFill:Bool, ?bSuppressStroke:Bool) : Void;
+	function addNewScene(?name:String) : Bool;
 	function addNewText(boundingRectangle:JSFLRect, ?text:String) : Void;
 	function align(alignMode:String, ?bUseDocumentBounds:Bool) : Void;
 	function allowScreens() : Bool;
@@ -62,6 +65,7 @@ extern class Document
 	function convertLinesToFills() : Void;
 	function convertToSymbol(type:String, name:String, registrationPoint:String) : SymbolInstance;
 	function crop() : Bool;
+	function debugMovie(?abortIfErrorsExist:Bool) : Void;
 	function deleteEnvelope() : Bool;
 	function deletePublishProfile() : Int;
 	function deleteScene() : Bool;
@@ -82,7 +86,8 @@ extern class Document
 	function exitEditMode() : Void;
 	function exportPNG(?fileURI:String, ?bCurrentPNGSettings:Bool, ?bCurrentFrame:Bool) : Bool;
 	function exportPublishProfile(fileURI:String) : Void;
-	function exportSWF(?fileURI:String,  ?bCurrentSettings:Bool) : Void;
+	function exportPublishProfileString(?profileName:String) : String;
+	function exportSWF(?fileURI:String, ?bCurrentSettings:Bool) : Void;
 	function getAlignToDocument() : Bool;
 	function getBlendMode() : String;
 	function getCustomFill(?objectToFill:String) : Fill;
@@ -101,8 +106,10 @@ extern class Document
 	function group() : Void;
 	function importFile(fileURI:String, ?importToLibrary:Bool) : Void;
 	function importPublishProfile(fileURI:String) : Int;
+	function importPublishProfileString(xmlString:String) : Bool;
 	function importSWF(fileURI:String) : Void;
 	function intersect() : Bool;
+	function loadCuepointXML(URI:String) : Void;
 	function match(bWidth:Bool, bHeight:Bool, ?bUseDocumentBounds:Bool) : Void;
 	function mouseClick(position:JSFLPoint, bToggleSel:Bool, bShiftSel:Bool) : Void;
 	function mouseDblClk(position:JSFLPoint, bAltDown:Bool, bShiftDown:Bool, bShiftSelect:Bool) : Void;
@@ -123,6 +130,7 @@ extern class Document
 	function resetTransformation() : Void;
 	function revert() : Void;
 	function revertToLastVersion() : Bool;
+	function rotate3DSelection(xyzCoordinate:{ x:Float, y:Float, z:Float }, bGlobalTransform:Bool) : Void;
 	function rotateSelection(angle:Float, ?rotationPoint:String) : Void;
 	function save(?bOkToSaveAs:Bool) : Bool;
 	function saveAndCompact(?bOkToSaveAs:Bool) : Bool;
@@ -148,14 +156,16 @@ extern class Document
 	function setPlayerVersion(version:String) : Bool;
 	function setRectangleObjectProperty(propertyName:String, value:Dynamic) : Void;
 	function setSelectionBounds(boundingRectangle:JSFLRect, ?bContactSensitiveSelection:Bool) : Void;
-	function setSelectionRect(rect:JSFLRect, ?bReplaceCurrentSelection:Bool, bContactSensitiveSelection:Bool) : Void;
+	function setSelectionRect(rect:JSFLRect, ?bReplaceCurrentSelection:Bool, ?bContactSensitiveSelection:Bool) : Void;
+	function setStageVanishingPoint(point:JSFLPoint) : Void;
+	function setStageViewAngle(angle:Float) : Void;
 	function setStroke(color:Dynamic, size:Float, strokeType:String) : Void;
 	function setStrokeColor(color:Dynamic) : Void;
 	function setStrokeSize(size:Float) : Void;
 	function setStrokeStyle(strokeType:String) : Void;
 	function setTextRectangle(boundingRectangle:JSFLRect) : Bool;
-	function setTextSelection(startIndex:Int, endIndex:Int) : Void;
-	function setTextString(setTextString:String, ?startIndex:Int, ?endIndex:Int) : Bool;
+	function setTextSelection(startIndex:Int, endIndex:Int) : Bool;
+	function setTextString(text:String, ?startIndex:Int, ?endIndex:Int) : Bool;
 	function setTransformationPoint(transformationPoint:JSFLPoint) : Void;
 	function skewSelection(xSkew:Float, ySkew:Float, ?whichEdge:String) : Void;
 	function smoothSelection() : Void;
@@ -164,9 +174,11 @@ extern class Document
 	function swapElement(name:String) : Void;
 	function swapStrokeAndFill() : Void;
 	function synchronizeWithHeadVersion() : Bool;
-	function testMovie() : Void;
+	function testMovie(?abortIfErrorsExist:Bool) : Void;
 	function testScene() : Void;
 	function traceBitmap(threshold:Int, minimumArea:Int, curveFit:String, cornerThreshold:String) : Void;
+	function translate3DCenter(xyzCoordinate:{ x:Float, y:Float, z:Float }) : Void;
+	function translate3DSelection(xyzCoordinate:{ x:Float, y:Float, z:Float }, bGlobalTransform:Bool) : Void;
 	function transformSelection(a:Float, b:Float, c:Float, d:Float) : Void;
 	function unGroup() : Void;
 	function union() : Bool;
