@@ -1,5 +1,6 @@
 using Lambda;
 using StringParserTools;
+using stdlib.StringTools;
 
 class Klass
 {
