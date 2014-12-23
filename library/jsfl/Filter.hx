@@ -2,23 +2,23 @@ package jsfl;
 
 typedef Filter =
 {
- 	public var angle : Float;
-	public var blurX : Float;
-	public var blurY : Float;
-	public var brightness : Float;
-	public var color : Dynamic;
-	public var contrast : Float;
-	public var distance : Float;
-	public var enabled : Bool;
-	public var hideObject : Bool;
-	public var highlightColor : Dynamic;
-	public var hue : Float;
-	public var inner : Bool;
-	public var knockout : Bool;
-	public var name : String;
-	public var quality : String;
-	public var saturation : Float;
-	public var shadowColor : Dynamic;
-	public var strength : Int;
-	public var type : String;
+ 	var angle : Float;
+	var blurX : Float;
+	var blurY : Float;
+	var brightness : Float;
+	var color : Dynamic;
+	var contrast : Float;
+	var distance : Float;
+	var enabled : Bool;
+	var hideObject : Bool;
+	var highlightColor : Dynamic;
+	var hue : Float;
+	var inner : Bool;
+	var knockout : Bool;
+	var name : String;
+	var quality : String;
+	var saturation : Float;
+	var shadowColor : Dynamic;
+	var strength : Int;
+	var type : String;
 }
