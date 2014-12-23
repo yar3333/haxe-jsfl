@@ -60,7 +60,7 @@ class Klass
 			r += methods[i].toString(methods[i + 1]);
 		}
 		
-		r += "}\n";
+		r += "}";
 		
 		return r;
 	}

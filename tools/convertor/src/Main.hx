@@ -39,6 +39,7 @@ class Main
 		"library item" => "Item",
 		"pair of floating-point values that specify the x and y coordinates" => "JSFLPoint",
 		"array of binary" => "Dynamic",
+		"index" => "Int",
 	];
 	
 	static var typeByName =
@@ -53,6 +54,7 @@ class Main
 		"*.profileNewName" => "String",
 		"*.bOkToSaveAs" => "Bool",
 		"*.xyzCoordinate" => "{ x:Float, y:Float, z:Float }",
+		"*.index" => "Int",
 		
 		"BitmapInstance.getBits" => "BitmapInstanceBits",
 		"BitmapInstance.setBits.bitmap" => "BitmapInstanceBits",
@@ -78,9 +80,41 @@ class Main
 		"Frame.getCustomEase" => "Array<JSFLPoint>",
 		"Frame.setCustomEase.easeCurve" => "Array<JSFLPoint>",
 		"Frame.setMotionObjectDuration.duration" => "Int",
+		"Frame.getMotionObjectXML" => "String",
+		"Frame.hasMotionPath" => "Bool",
+		"Frame.is3DMotionObject" => "Bool",
+		"Frame.isMotionObject" => "Bool",
 		
 		"Library.importEmbeddedSWF.swfData" => "Dynamic",
 		
+		"Parameter.value" => "Dynamic",
+		"Parameter.listIndex" => "Int",
+		"Parameter.verbose" => "Int",
+		
+		"Shape.members" => "Array<Dynamic>",
+		"Shape.numCubicSegments" => "Int",
+		
+		"SymbolInstance.colorRedPercent" => "Float",
+		"SymbolInstance.colorGreenPercent" => "Float",
+		"SymbolInstance.colorBluePercent" => "Float",
+		"SymbolInstance.colorAlphaPercent" => "Float",
+		
+		"Text.setTextAttr.attrValue" => "Dynamic",
+		
+		"TextRun.characters" => "String",
+		"TextRun.textAttrs" => "TextAttrs",
+		
+		"Timeline.libraryItem" => "Item",
+		"Timeline.getFrameProperty" => "Dynamic",
+		"Timeline.getLayerProperty" => "Dynamic",
+		"Timeline.reorderLayer.bAddBefore" => "Bool",
+		
+		"Vertex.x" => "Float",
+		"Vertex.y" => "Float",
+		
+		"XMLUI.getControlItemElement" => "{ label:String, value:String }",
+		"XMLUI.setControlItemElement.elementItem" => "{ label:String, value:String }",
+		"XMLUI.setControlItemElements.elementItemArray" => "Array<{ label:String, value:String }>",
 	];
 	
 	static var optionalByName =
@@ -123,6 +157,48 @@ class Main
 		"Library.moveToFolder.itemToMove" => "true",
 		"Library.moveToFolder.bReplace" => "true",
 		"Library.newFolder.folderPath" => "true",
+		
+		"Path.makeShape.bSupressStroke" => "true",
+		
+		"Text.getTextAttr.endIndex" => "true",
+		"Text.getTextString.endIndex" => "true",
+		"Text.setTextAttr.endIndex" => "true",
+		"Text.setTextString.endIndex" => "true",
+		"Text.setTextString.startIndex" => "true",
+		
+		"Timeline.addNewLayer.*" => "true",
+		"Timeline.clearFrames.*" => "true",
+		"Timeline.convertToBlankKeyframes.*" => "true",
+		"Timeline.convertToKeyframes.*" => "true",
+		"Timeline.copyFrames.*" => "true",
+		"Timeline.clearKeyframes.*" => "true",
+		"Timeline.copyLayers.*" => "true",
+		"Timeline.cutLayers.*" => "true",
+		"Timeline.createMotionObject.*" => "true",
+		"Timeline.createMotionTween.*" => "true",
+		"Timeline.cutFrames.*" => "true",
+		"Timeline.getFrameProperty.startFrameIndex" => "true",
+		"Timeline.getFrameProperty.endFrameIndex" => "true",
+		"Timeline.deleteLayer.index" => "true",
+		"Timeline.insertBlankKeyframe.frameNumIndex" => "true",
+		"Timeline.insertFrames.*" => "true",
+		"Timeline.insertKeyframe.frameNumIndex" => "true",
+		"Timeline.expandFolder.bRecurseNestedParents" => "true",
+		"Timeline.pasteFrames.*" => "true",
+		"Timeline.pasteLayers.*" => "true",
+		"Timeline.removeFrames.*" => "true",
+		"Timeline.removeMotionObject.*" => "true",
+		"Timeline.reverseFrames.*" => "true",
+		"Timeline.setFrameProperty.startFrameIndex" => "true",
+		"Timeline.setFrameProperty.endFrameIndex" => "true",
+		"Timeline.setLayerProperty.layersToChange" => "true",
+		"Timeline.setSelectedFrames.endFrameIndex" => "true",
+		"Timeline.setSelectedFrames.selectionList" => "true",
+		"Timeline.expandFolder.index" => "true",
+		"Timeline.reorderLayer.bAddBefore" => "true",
+		
+		"PresetPanel.selectItem.bSelect" => "true",
+		"PresetPanel.expandFolder.bRecurse" => "true",
 	];
 	
 	static var fixParamName =
@@ -132,6 +208,7 @@ class Main
 		"alignmode" => "alignMode",
 		"registration point" => "registrationPoint",
 		"bAltdown" => "bAltDown",
+		"Placeholder" => "placeholder",
 	];
 	
 	static function main()
@@ -283,6 +360,9 @@ class Main
 	static function processMethod(klassName:String, method:Method, inner:HtmlNodeElement)
 	{
 		var titles = inner.find(">div.cls_020");
+		
+		method.type = findType(klassName + "." + method.name, "", "Void");
+		
 		structurize(inner, titles, function(title, inner)
 		{
 			var titleName = title.find(">span.cls_020")[0].innerHTML;
@@ -317,7 +397,11 @@ class Main
 				nameNode.remove();
 				var desc = node.toString().stripTags().trim();
 				var type = findType(klassName + "." + methodName + "." + name, desc, "Dynamic");
-				var optional = optionalByName.exists((klassName + "." + methodName + "." + name).toLowerCase()) || optionalByName.exists("*." + name.toLowerCase()) || desc.indexOf("optional") >= 0;
+				var optional = 
+					optionalByName.exists((klassName + "." + methodName + "." + name).toLowerCase()) 
+				 || optionalByName.exists("*." + name.toLowerCase())
+				 || optionalByName.exists((klassName + "." + methodName).toLowerCase() + ".*")
+				 || desc.indexOf("optional") >= 0;
 				
 				for (name in name.split(","))
 				{
