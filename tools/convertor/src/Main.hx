@@ -7,11 +7,13 @@ import stdlib.Unserializer;
 import sys.FileSystem;
 import sys.io.File;
 import neko.Lib;
-using StringTools;
+using stdlib.StringTools;
 
 class Main
 {
 	static var log = new Log();
+	
+	static var reType = ~/\b(?:integer|string|boolean)\b/i;
 	
 	static function main()
 	{
@@ -109,17 +111,18 @@ class Main
 			var name = reChapter.matched(1);
 			
 			log.start("Class '" + name + "'");
-			var klass = new Klass(name, null, [], [], []);
+			var klass = new Klass(name, getClassInherits(inner), [], [], []);
+			
 			var fields = inner.find(">div.cls_017>span.cls_017").map(function(a) return a.parent);
 			structurize(inner, fields, function(field, inner)
 			{
 				var fieldName = field.find(">span")[0].innerHTML;
-				if (fieldName.startsWith(name + "."))
+				if (fieldName.toLowerCase().startsWith(name.toLowerCase() + "."))
 				{
 					processField(klass, fieldName.substr(name.length + 1), inner);
 				}
 			});
-			File.saveContent("../../library/jsfl/" + klass.name + ".hx", klass.toString("jsfl", []));
+			File.saveContent("../../library/jsfl/" + klass.name.capitalize() + ".hx", klass.toString("jsfl", []));
 			log.finishOk();
 		});
 		log.finishOk();
@@ -137,7 +140,7 @@ class Main
 		}
 		else
 		{
-			var attribute = new Attribute(null, name, "", false);
+			var attribute = new Attribute("Dynamic", name, "", false);
 			processAttribute(attribute, inner);
 			klass.attributes.push(attribute);
 		}
@@ -151,7 +154,7 @@ class Main
 		structurize(inner, titles, function(title, inner)
 		{
 			var titleName = title.find(">span")[0].innerHTML;
-			log.trace("Title: " + titleName);
+			//log.trace("Title: " + titleName);
 			/*
 			switch (titleName)
 			{
@@ -166,15 +169,33 @@ class Main
 		structurize(inner, titles, function(title, inner)
 		{
 			var titleName = title.find(">span")[0].innerHTML;
-			log.trace("Title: " + titleName);
+			//log.trace("Title: " + titleName);
 			
 			switch (titleName)
 			{
 				case "Description":
 					attribute.desc = stdlib.StringTools.stripTags(inner.toString());
-					//attribute.
+					if (reType.match(attribute.desc))
+					{
+						attribute.type = Types.convert(reType.matched(0));
+					}
 			}
 		});
+	}
+	
+	static function getClassInherits(inner:HtmlNodeElement) : String
+	{
+		for (node in inner.find(">div.cls_011>span.cls_011"))
+		{
+			if (node.innerHTML.trim() == "Inheritance")
+			{
+				var nodes = node.parent.find(">span.cls_018");
+				var r = nodes[nodes.length - 1].innerHTML.trim();
+				if (r.endsWith(" object")) return r.substr(0, r.length - " object".length);
+				return null;
+			}
+		}
+		return null;
 	}
 	
 	static function structurize(root:HtmlNodeElement, items:Array<HtmlNodeElement>, f:HtmlNodeElement->HtmlNodeElement->Void)

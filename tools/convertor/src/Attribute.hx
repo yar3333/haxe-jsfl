@@ -27,7 +27,7 @@ class Attribute
 			}
 			r += "\t */\n";
 		}
-		r += "\tvar " + name + " : " + Types.convert(type) + ";\n";
+		r += "\tvar " + name + " : " + type + ";\n";
 		return r;
 	}
 }
