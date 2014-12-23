@@ -2,18 +2,18 @@ package jsfl;
 
 typedef ScreenOutline =
 {
-	public function copyScreenFromFile(fileURI:String, ?screenName:String) : Void;
-	public var currentScreen : Screen;
-	public function deleteScreen(screenName:String) : Void;
-	public function duplicateScreen(?screenName:String) : Void;
-	public function getSelectedScreens() : Array<Screen>;
-	public function insertNestedScreen(name:String, ?referenceScreen:String, ?screenTypeName:String) : Screen;
-	public function insertScreen(name:String, ?referenceScreen:String, ?screenTypeName:String) : Screen;
-	public function moveScreen(screenToMove:String, referenceScreen:String, position:String) : Bool;
-	public function renameScreen(newScreenName:String, ?oldScreenName:String, ?bDisplayError:Bool) : Bool;
-	public var rootScreen : Screen;
-	public var screens : Array<Screen>;
-	public function setCurrentScreen(name:String) : Void;
-	public function setScreenProperty(property:String, value:Dynamic) : Void;
-	public function setSelectedScreens(selection:Array<String>,?bReplaceCurrentSelection:Bool) : Void;
+	function copyScreenFromFile(fileURI:String, ?screenName:String) : Void;
+	var currentScreen : Screen;
+	function deleteScreen(screenName:String) : Void;
+	function duplicateScreen(?screenName:String) : Void;
+	function getSelectedScreens() : Array<Screen>;
+	function insertNestedScreen(name:String, ?referenceScreen:String, ?screenTypeName:String) : Screen;
+	function insertScreen(name:String, ?referenceScreen:String, ?screenTypeName:String) : Screen;
+	function moveScreen(screenToMove:String, referenceScreen:String, position:String) : Bool;
+	function renameScreen(newScreenName:String, ?oldScreenName:String, ?bDisplayError:Bool) : Bool;
+	var rootScreen : Screen;
+	var screens : Array<Screen>;
+	function setCurrentScreen(name:String) : Void;
+	function setScreenProperty(property:String, value:Dynamic) : Void;
+	function setSelectedScreens(selection:Array<String>,?bReplaceCurrentSelection:Bool) : Void;
 }

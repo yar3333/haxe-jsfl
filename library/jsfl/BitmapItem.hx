@@ -2,8 +2,8 @@ package jsfl;
 
 typedef BitmapItem =
 {>Item,
-	public var allowSmoothing : Bool;
-	public var compressionType : String;
-	public var quality : Int;
-	public var useImportedJPEGQuality : Bool;
+	var allowSmoothing : Bool;
+	var compressionType : String;
+	var quality : Int;
+	var useImportedJPEGQuality : Bool;
 }

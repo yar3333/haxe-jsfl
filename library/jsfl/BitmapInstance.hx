@@ -11,8 +11,8 @@ typedef BitmapInstanceBits =
 
 typedef BitmapInstance =
 {> Instance,
-	public function getBits() : BitmapInstanceBits;
-	public var hPixels : Int;
-	public function setBits(bitmap:BitmapInstanceBits) : Void;
-	public var vPixels : Int;
+	function getBits() : BitmapInstanceBits;
+	var hPixels : Int;
+	function setBits(bitmap:BitmapInstanceBits) : Void;
+	var vPixels : Int;
 }

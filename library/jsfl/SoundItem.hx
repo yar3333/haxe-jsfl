@@ -2,11 +2,11 @@ package jsfl;
 
 typedef SoundItem =
 {> Item,
-	public var bitRate : String;
-	public var bits : String;
-	public var compressionType : String;
-	public var convertStereoToMono : Bool;
-	public var quality : String;
-	public var sampleRate : String;
-	public var useImportedMP3Quality : Bool;
+	var bitRate : String;
+	var bits : String;
+	var compressionType : String;
+	var convertStereoToMono : Bool;
+	var quality : String;
+	var sampleRate : String;
+	var useImportedMP3Quality : Bool;
 }

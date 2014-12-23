@@ -2,10 +2,10 @@ package jsfl;
 
 typedef Matrix =
 {
-	public var a : Float;
-	public var b : Float;
-	public var c : Float;
-	public var d : Float;
-	public var tx : Float;
-	public var ty : Float;
+	var a : Float;
+	var b : Float;
+	var c : Float;
+	var d : Float;
+	var tx : Float;
+	var ty : Float;
 }

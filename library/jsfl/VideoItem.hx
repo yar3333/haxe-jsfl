@@ -2,6 +2,6 @@ package jsfl;
 
 typedef VideoItem =
 {> Item,
-	public var sourceFilePath : String;
-	public var videoType : String;
+	var sourceFilePath : String;
+	var videoType : String;
 }
