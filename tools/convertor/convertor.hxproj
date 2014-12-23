@@ -4,7 +4,7 @@
   <output>
     <movie outputType="Application" />
     <movie input="" />
-    <movie path="bin/convertor.n" />
+    <movie path="bin\convertor.n" />
     <movie fps="0" />
     <movie width="0" />
     <movie height="0" />
@@ -39,6 +39,7 @@
   <!-- Paths to exclude from the Project Explorer tree -->
   <hiddenPaths>
     <hidden path="obj" />
+    <hidden path="bin" />
   </hiddenPaths>
   <!-- Executed before build -->
   <preBuildCommand />

@@ -11,15 +11,12 @@ using StringTools;
 
 class Main
 {
+	static var log = new Log();
+	
 	static function main()
 	{
-		var log = new Log();
-		
 		log.start("Parse html");
-		
-		var text = File.getContent("../../native/flash_cs5_extending.html");
-		//text = text.replace("position:absolute", "");
-		var doc = new HtmlDocument(text);
+		var doc = new HtmlDocument(File.getContent("../../native/flash_cs5_extending.html"));
 		log.finishOk();
 		
 		var body = doc.find(">body")[0];
@@ -98,7 +95,7 @@ class Main
 		
 		var reChapter = ~/^Chapter\s*\d+:\s*([_a-zA-Z][_a-zA-Z0-9]+)\s*object$/;
 		
-		log.start("Find chapters");
+		log.start("Find classes");
 		var chapters = body.find(">div.cls_010>span.cls_010")
 			.map(function(span) return reChapter.match(span.innerHTML) ? span.parent : null)
 			.filter(function(a) return a != null);
@@ -111,24 +108,73 @@ class Main
 			reChapter.match(chapter.find(">span")[0].innerHTML);
 			var name = reChapter.matched(1);
 			
-			log.start("Chapter '" + name + "'");
-			var klass = new Klass(name, null, [], [], [], []);
+			log.start("Class '" + name + "'");
+			var klass = new Klass(name, null, [], [], []);
 			var fields = inner.find(">div.cls_017>span.cls_017").map(function(a) return a.parent);
 			structurize(inner, fields, function(field, inner)
 			{
 				var fieldName = field.find(">span")[0].innerHTML;
-				log.start("Field '" + fieldName + "'");
-				var titles = inner.find(">div.cls_020>span.cls_020").map(function(a) return a.parent);
-				structurize(inner, titles, function(title, inner)
+				if (fieldName.startsWith(name + "."))
 				{
-					var titleName = title.find(">span")[0].innerHTML;
-					log.trace("Title: " + titleName);
-				});
-				log.finishOk();
+					processField(klass, fieldName.substr(name.length + 1), inner);
+				}
 			});
+			File.saveContent("../../library/jsfl/" + klass.name + ".hx", klass.toString("jsfl", []));
 			log.finishOk();
 		});
 		log.finishOk();
+	}
+	
+	static function processField(klass:Klass, name:String, inner:HtmlNodeElement)
+	{
+		log.start("Field '" + name + "'");
+		
+		if (name.endsWith("()"))
+		{
+			var method = new Method(null, name.substr(0, name.length - 2), []);
+			processMethod(method, inner);
+			klass.methods.push(method);
+		}
+		else
+		{
+			var attribute = new Attribute(null, name, "", false);
+			processAttribute(attribute, inner);
+			klass.attributes.push(attribute);
+		}
+		
+		log.finishOk();
+	}
+	
+	static function processMethod(method:Method, inner:HtmlNodeElement)
+	{
+		var titles = inner.find(">div.cls_020>span.cls_020").map(function(a) return a.parent);
+		structurize(inner, titles, function(title, inner)
+		{
+			var titleName = title.find(">span")[0].innerHTML;
+			log.trace("Title: " + titleName);
+			/*
+			switch (titleName)
+			{
+				case "Description": attribute.desc = inner.toString().
+			}*/
+		});
+	}
+	
+	static function processAttribute(attribute:Attribute, inner:HtmlNodeElement)
+	{
+		var titles = inner.find(">div.cls_020>span.cls_020").map(function(a) return a.parent);
+		structurize(inner, titles, function(title, inner)
+		{
+			var titleName = title.find(">span")[0].innerHTML;
+			log.trace("Title: " + titleName);
+			
+			switch (titleName)
+			{
+				case "Description":
+					attribute.desc = stdlib.StringTools.stripTags(inner.toString());
+					//attribute.
+			}
+		});
 	}
 	
 	static function structurize(root:HtmlNodeElement, items:Array<HtmlNodeElement>, f:HtmlNodeElement->HtmlNodeElement->Void)
