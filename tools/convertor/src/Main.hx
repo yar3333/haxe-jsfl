@@ -11,7 +11,7 @@ class Main
 {
 	static var log = new Log();
 	
-	static var staticClasses = [ "fl", "FLfile" ]; // force methods to be statci
+	static var staticClasses = [ "fl", "FLfile" ]; // force methods of this classes to be static
 	static var classNotTypedefs = [ "fl", "FLfile" ]; // other will be typedefs
 	
 	static var knownTypes =
@@ -22,11 +22,125 @@ class Main
 		"true" => "Bool",
 		"false" => "Bool",
 		"floating-point" => "Float",
-		"float value" => "Float"
+		"floating point" => "Float",
+		"float value" => "Float",
+		"integer or float" => "Float",
+		"point" => "JSFLPoint",
+		"rectangle" => "JSFLRect",
+		"data" => "Dynamic",
+		"array of actionScript 2.0 properties" => "Array<Parameter>",
+		"color" => "Dynamic",
+		"top" => "Float",
+		"array of the selected objects" => "Array<Dynamic>",
+		"uri" => "String",
+		"date" => "Date",
+		"library item (see sounditem object)" => "SoundItem",
+		"location of the vertex in pixels" => "Float",
+		"library item" => "Item",
+		"pair of floating-point values that specify the x and y coordinates" => "JSFLPoint",
+		"array of binary" => "Dynamic",
+	];
+	
+	static var typeByName =
+	[
+		"*.boundingRectangle" => "JSFLRect",
+		"*.data" => "Dynamic",
+		"*.startpoint" => "JSFLPoint",
+		"*.endpoint" => "JSFLPoint",
+		"*.profileName" => "String",
+		"*.name" => "String",
+		"*.arrangeMode" => "String",
+		"*.profileNewName" => "String",
+		"*.bOkToSaveAs" => "Bool",
+		"*.xyzCoordinate" => "{ x:Float, y:Float, z:Float }",
+		
+		"BitmapInstance.getBits" => "BitmapInstanceBits",
+		"BitmapInstance.setBits.bitmap" => "BitmapInstanceBits",
+		
+		"Document.publishProfiles" => "Array<String>",
+		"Document.screenOutline" => "ScreenOutline",
+		"Document.zoomFactor" => "Float",
+		"Document.addDataToSelection.type" => "String",
+		"Document.addNewPrimitiveRectangle.rect" => "JSFLRect",
+		"Document.convertToSymbol" => "SymbolInstance",
+		"Document.convertToSymbol.registrationPoint" => "String",
+		"Document.getElementProperty" => "Dynamic",
+		"Document.getSelectionRect" => "JSFLRect",
+		"Document.getElementTextAttr" => "Dynamic",
+		"Document.moveSelectionBy.distanceToMove" => "JSFLPoint",
+		"Document.setElementTextAttr.attrValue" => "String",
+		"Document.xmlPanel" => "Dynamic<String>",
+		"Document.setSelectionRect.rect" => "JSFLRect",
+		
+		"Filter.type" => "String",
+		
+		"Frame.startFrame" => "Int",
+		"Frame.getCustomEase" => "Array<JSFLPoint>",
+		"Frame.setCustomEase.easeCurve" => "Array<JSFLPoint>",
+		"Frame.setMotionObjectDuration.duration" => "Int",
+		
+		"Library.importEmbeddedSWF.swfData" => "Dynamic",
+		
+	];
+	
+	static var optionalByName =
+	[
+		"*.bSuppressFill" => "true",
+		"*.bSuppressStroke" => "true",
+		"*.bPromptToSaveChanges" => "true",
+		"*.bUseDocumentBounds" => "true",
+		"*.bReplaceCurrentSelection" => "true",
+		"*.bContactSensitiveSelection" => "true",
+		"*.abortIfErrorsExist" => "true",
+		
+		"Document.addNewScene.name" => "true",
+		"Document.addNewPublishProfile.profileName" => "true",
+		"Document.enterEditMode.editMode" => "true",
+		"Document.exportPNG.fileURI" => "true",
+		"Document.exportPNG.bCurrentPNGSettings" => "true",
+		"Document.exportPNG.bCurrentFrame" => "true",
+		"Document.exportSWF.fileURI" => "true",
+		"Document.exportSWF.bCurrentSettings" => "true",
+		"Document.getCustomFill.objectToFill" => "true",
+		"Document.getElementTextAttr.startIndex" => "true",
+		"Document.importFile.importToLibrary" => "true",
+		"Document.rotateSelection.rotationPoint" => "true",
+		"Document.scaleSelection.whichCorner" => "true",
+		"Document.setTextString.startIndex" => "true",
+		"Document.skewSelection.whichEdge" => "true",
+		
+		"Library.addItemToDocument.namePath" => "true",
+		"Library.addNewItem.namePath" => "true",
+		"Library.deleteItem.namePath" => "true",
+		"Library.duplicateItem.namePath" => "true",
+		"Library.editItem.namePath" => "true",
+		"Library.expandFolder.bRecurseNestedParents" => "true",
+		"Library.getItemType.namePath" => "true",
+		"Library.selectAll.bSelectAll" => "true",
+		"Library.selectItem.bSelect" => "true",
+		"Library.updateItem.namePath" => "true",
+		"Library.importEmbeddedSWF.libName" => "true",
+		"Library.moveToFolder.itemToMove" => "true",
+		"Library.moveToFolder.bReplace" => "true",
+		"Library.newFolder.folderPath" => "true",
+	];
+	
+	static var fixParamName =
+	[
+		"startpoint" => "startPoint",
+		"endpoint" => "endPoint",
+		"alignmode" => "alignMode",
+		"registration point" => "registrationPoint",
+		"bAltdown" => "bAltDown",
 	];
 	
 	static function main()
 	{
+		lowerMapKeys(knownTypes);
+		lowerMapKeys(typeByName);
+		lowerMapKeys(optionalByName);
+		lowerMapKeys(fixParamName);
+		
 		log.start("Parse html");
 		var doc = new HtmlDocument(File.getContent("../../native/flash_cs5_extending.html"));
 		log.finishOk();
@@ -152,21 +266,21 @@ class Main
 		
 		if (name.endsWith("()"))
 		{
-			var method = new Method(null, name.substr(0, name.length - 2), [], "", staticClasses.has(klass.name));
-			processMethod(method, inner);
+			var method = new Method("Void", name.substr(0, name.length - 2), [], "", staticClasses.has(klass.name));
+			processMethod(klass.name, method, inner);
 			klass.methods.push(method);
 		}
 		else
 		{
 			var attribute = new Attribute("Dynamic", name, "", false);
-			processAttribute(attribute, inner);
+			processAttribute(klass.name, attribute, inner);
 			klass.attributes.push(attribute);
 		}
 		
 		log.finishOk();
 	}
 	
-	static function processMethod(method:Method, inner:HtmlNodeElement)
+	static function processMethod(klassName:String, method:Method, inner:HtmlNodeElement)
 	{
 		var titles = inner.find(">div.cls_020");
 		structurize(inner, titles, function(title, inner)
@@ -177,9 +291,9 @@ class Main
 			switch (titleName)
 			{
 				case "Parameters":
-					processParams(method.params, inner);
+					processParams(klassName, method.name, method.params, inner);
 				case "Returns": 
-					method.type = extractType(inner.toString().stripTags(), "Void");
+					method.type = findType(klassName + "." + method.name, inner.toString().stripTags(), "Void");
 				case "Description":
 					method.desc = inner.toString().stripTags().trim();
 					if (method.desc.startsWith("Method; "))
@@ -190,7 +304,7 @@ class Main
 		});
 	}
 	
-	static function processParams(params:Array<MethodParam>, inner:HtmlNodeElement)
+	static function processParams(klassName:String, methodName:String, params:Array<MethodParam>, inner:HtmlNodeElement)
 	{
 		var nodes = inner.children.filter(function(a) return a.name == "div" && [ "cls_011", "cls_029" ].has(a.getAttribute("class")));
 		structurize(inner, nodes, function(node, _)
@@ -198,16 +312,22 @@ class Main
 			var nameNode = node.find(">span")[0];
 			if (nameNode != null)
 			{
+				var name = nameNode.innerHTML.trim();
+				if (fixParamName.exists(name.toLowerCase())) name = fixParamName.get(name.toLowerCase());
 				nameNode.remove();
 				var desc = node.toString().stripTags().trim();
-				var type = extractType(desc);
-				var optional = desc.startsWith("An optional");
-				params.push( { name:nameNode.innerHTML.trim(), type:type, optional:optional, desc:desc } );
+				var type = findType(klassName + "." + methodName + "." + name, desc, "Dynamic");
+				var optional = optionalByName.exists((klassName + "." + methodName + "." + name).toLowerCase()) || optionalByName.exists("*." + name.toLowerCase()) || desc.indexOf("optional") >= 0;
+				
+				for (name in name.split(","))
+				{
+					params.push( { name:name.trim(), type:type, optional:optional, desc:desc } );
+				}
 			}
 		});
 	}
 	
-	static function processAttribute(attribute:Attribute, inner:HtmlNodeElement)
+	static function processAttribute(klassName:String, attribute:Attribute, inner:HtmlNodeElement)
 	{
 		var titles = inner.find(">div.cls_020");
 		structurize(inner, titles, function(title, inner)
@@ -219,7 +339,7 @@ class Main
 			{
 				case "Description":
 					attribute.desc = inner.toString().stripTags().trim();
-					attribute.type = extractType(attribute.desc);
+					attribute.type = findType(klassName + "." + attribute.name, attribute.desc, "Dynamic");
 			}
 		});
 	}
@@ -251,7 +371,16 @@ class Main
 		}
 	}
 	
-	static function extractType(s:String, def="Dynamic")
+	static function findType(name:String, desc:String, def:String) : String
+	{
+		var name = name.toLowerCase();
+		if (typeByName.exists(name)) return typeByName.get(name);
+		var parts = name.split(".");
+		if (parts.length == 3 && typeByName.exists("*." + parts[2])) return typeByName.get("*." + parts[2]);
+		return extractType(desc, def);
+	}
+	
+	static function extractType(s:String, def:String)
 	{
 		s = s.toLowerCase();
 		
@@ -260,21 +389,24 @@ class Main
 		var bestType = null;
 		var bestN = 1e9;
 		var arr = false;
+		var bestWordCount = 0;
 		for (key in knownTypes.keys())
 		{
 			var n = s.indexOf("array of " + key);
-			if (n >= 0 && n < bestN)
+			if (n >= 0 && (n < bestN || n == bestN && ("array of " + key).split(" ").length > bestWordCount))
 			{
 				bestType = key;
 				bestN = n;
+				bestWordCount = ("array of " + key).split(" ").length;
 				arr = true;
 			}
 			n = s.indexOf(key);
-			if (n >= 0 && n < bestN)
+			if (n >= 0 && (n < bestN || n == bestN && key.split(" ").length > bestWordCount))
 			{
 				bestType = key;
 				bestN = n;
-				arr = false;
+				bestWordCount = key.split(" ").length;
+				arr = s.startsWith("an array");
 			}
 		}
 		
@@ -289,5 +421,18 @@ class Main
 		}
 		
 		return def;
+	}
+	
+	static function lowerMapKeys(map:Map<String, String>)
+	{
+		for (key in map.keys())
+		{
+			if (key.toLowerCase() != key)
+			{
+				var v = map[key];
+				map.remove(key);
+				map.set(key.toLowerCase(), v);
+			}
+		}
 	}
 }
