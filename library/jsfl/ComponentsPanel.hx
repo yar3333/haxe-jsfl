@@ -2,6 +2,6 @@ package jsfl;
 
 typedef ComponentsPanel =
 {
-	public function addItemToDocument(position:JSFLPoint, categoryName:String, componentName:String) : Void;
-	public function reload() : Bool;
+	function addItemToDocument(position:JSFLPoint, categoryName:String, componentName:String) : Void;
+	function reload() : Bool;
 }

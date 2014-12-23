@@ -2,6 +2,6 @@ package jsfl;
 
 extern class TextRun
 {
-	public var characters : String;
-	public var textAttrs : TextAttrs;
+	var characters : String;
+	var textAttrs : TextAttrs;
 }

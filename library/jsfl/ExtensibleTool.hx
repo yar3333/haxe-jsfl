@@ -2,18 +2,18 @@ package jsfl;
 
 class ExtensibleTool
 {
-	public function activate() : Void {}
-	public function configureTool() : Void {}
-	public function deactivate() : Void {}
-	public function keyDown() : Void {}
-	public function keyUp() : Void {}
-	public function mouseDoubleClick() : Void {}
-	public function mouseDown(pt:JSFLPoint) : Void {}
-	public function mouseMove(pt:JSFLPoint) : Void {}
-	public function mouseUp() : Void {}
-	public function notifySettingsChanged() : Void {}
-	public function setCursor() : Void {}
-	public function attachTool() : Void untyped
+	function activate() : Void {}
+	function configureTool() : Void {}
+	function deactivate() : Void {}
+	function keyDown() : Void {}
+	function keyUp() : Void {}
+	function mouseDoubleClick() : Void {}
+	function mouseDown(pt:JSFLPoint) : Void {}
+	function mouseMove(pt:JSFLPoint) : Void {}
+	function mouseUp() : Void {}
+	function notifySettingsChanged() : Void {}
+	function setCursor() : Void {}
+	function attachTool() : Void untyped
 	{
 		activate=$closure(this, this.activate);
 		configureTool=$closure(this, this.configureTool);

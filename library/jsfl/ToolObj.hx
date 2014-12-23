@@ -2,16 +2,16 @@ package jsfl;
 
 typedef ToolObj =
 {
-	public var depth : Int;
-	public function enablePIControl(control:String, bEnable:Bool) : Void;
-	public var iconID : Int;
-	public var position : Int;
-	public function setIcon(file:String) : Void;
-	public function setMenuString(menuStr:String) : Void;
-	public function setOptionsFile(xmlFile:String) : Void;
-	public function setPI(pi:String) : Void;
-	public function setToolName(name:String) : Void;
-	public function setToolTip(toolTip:String) : Void;
-	public function showPIControl(control:String, bShow:Bool) : Void;
-	public function showTransformHandles(bShow:Bool) : Void;
+	var depth : Int;
+	function enablePIControl(control:String, bEnable:Bool) : Void;
+	var iconID : Int;
+	var position : Int;
+	function setIcon(file:String) : Void;
+	function setMenuString(menuStr:String) : Void;
+	function setOptionsFile(xmlFile:String) : Void;
+	function setPI(pi:String) : Void;
+	function setToolName(name:String) : Void;
+	function setToolTip(toolTip:String) : Void;
+	function showPIControl(control:String, bShow:Bool) : Void;
+	function showTransformHandles(bShow:Bool) : Void;
 }

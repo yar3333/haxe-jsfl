@@ -2,14 +2,14 @@ package jsfl;
 
 typedef Shape =
 {> Element,
-	public function beginEdit() : Void;
-	public var contours : Array<Contour>;
-	public function deleteEdge(index:Int) : Void;
-	public var edges : Array<Edge>;
-	public function endEdit() : Void;
-	public var isDrawingObject : Bool;
-	public var isGroup : Bool;
-	public var isOvalObject : Bool;
-	public var isRectangleObject : Bool;
-	public var vertices : Array<Vertex>;
+	function beginEdit() : Void;
+	var contours : Array<Contour>;
+	function deleteEdge(index:Int) : Void;
+	var edges : Array<Edge>;
+	function endEdit() : Void;
+	var isDrawingObject : Bool;
+	var isGroup : Bool;
+	var isOvalObject : Bool;
+	var isRectangleObject : Bool;
+	var vertices : Array<Vertex>;
 }

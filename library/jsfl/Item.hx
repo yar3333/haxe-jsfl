@@ -2,18 +2,18 @@ package jsfl;
 
 typedef Item =
 {
-	public function addData(name:String, type:String, data:Dynamic) : Void;
-	public function getData(name:String) : Dynamic;
-	public function hasData(name:String) : Bool;
-	public var itemType : String;
-	public var linkageBaseClass : String;
-	public var linkageClassName : String;
-	public var linkageExportForAS : Bool;
-	public var linkageExportForRS : Bool;
-	public var linkageExportInFirstFrame : Bool;
-	public var linkageIdentifier : String;
-	public var linkageImportForRS : Bool;
-	public var linkageURL : String;
-	public var name : String;
-	public function removeData(name:String) : Void;
+	function addData(name:String, type:String, data:Dynamic) : Void;
+	function getData(name:String) : Dynamic;
+	function hasData(name:String) : Bool;
+	var itemType : String;
+	var linkageBaseClass : String;
+	var linkageClassName : String;
+	var linkageExportForAS : Bool;
+	var linkageExportForRS : Bool;
+	var linkageExportInFirstFrame : Bool;
+	var linkageIdentifier : String;
+	var linkageImportForRS : Bool;
+	var linkageURL : String;
+	var name : String;
+	function removeData(name:String) : Void;
 }

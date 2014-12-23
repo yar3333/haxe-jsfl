@@ -2,8 +2,8 @@ package jsfl;
 
 extern class Vertex
 {
-	public function getHalfEdge() : HalfEdge;
-	public function setLocation(x:Float, y:Float) : Void;
-	public var x : Float;
-	public var y : Float;
+	function getHalfEdge() : HalfEdge;
+	function setLocation(x:Float, y:Float) : Void;
+	var x : Float;
+	var y : Float;
 }

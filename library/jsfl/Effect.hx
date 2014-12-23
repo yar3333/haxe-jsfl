@@ -2,9 +2,9 @@ package jsfl;
 
 typedef Effect =
 {
-	public var effectName : String;
-	public var groupName : String;
-	public var sourceFile : String;
-	public var symbolType : String;
-	public var useXMLToUI : Bool;
+	var effectName : String;
+	var groupName : String;
+	var sourceFile : String;
+	var symbolType : String;
+	var useXMLToUI : Bool;
 }

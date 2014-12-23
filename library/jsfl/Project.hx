@@ -2,14 +2,14 @@ package jsfl;
 
 extern class Project
 {
-	public function addFile(fileURI:String, ?autoCreateFolder:Bool) : ProjectItem;
-	public function canPublishProject() : Bool;
-	public function canTestProject() : Bool;
-	public var defaultItem : ProjectItem;
-	public function findProjectItem(fileURI:String) : ProjectItem;
-	public var items : Array<ProjectItem>;
-	public var name : String;
-	public var projectURI : String;
-	public function publishProject() : Bool;
-	public function testProject() : Bool;
+	function addFile(fileURI:String, ?autoCreateFolder:Bool) : ProjectItem;
+	function canPublishProject() : Bool;
+	function canTestProject() : Bool;
+	var defaultItem : ProjectItem;
+	function findProjectItem(fileURI:String) : ProjectItem;
+	var items : Array<ProjectItem>;
+	var name : String;
+	var projectURI : String;
+	function publishProject() : Bool;
+	function testProject() : Bool;
 }

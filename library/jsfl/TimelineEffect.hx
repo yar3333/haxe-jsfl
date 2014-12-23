@@ -2,10 +2,10 @@ package jsfl;
 
 class TimelineEffect
 {
-	public function configureEffect() : Void {}
-	public function executeEffect() : Void {}
-	public function removeEffect() : Void {}
-	public function attachEffect() : Void untyped
+	function configureEffect() : Void {}
+	function executeEffect() : Void {}
+	function removeEffect() : Void {}
+	function attachEffect() : Void untyped
 	{
 		configureEffect=$closure(this, this.configureEffect);
 		executeEffect=$closure(this, this.executeEffect);

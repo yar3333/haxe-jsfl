@@ -2,8 +2,8 @@ package jsfl;
 
 typedef Oval =
 {
-	public var closePath : Bool;
-	public var endAngle : Float;
-	public var innerRadius : Float;
-	public var startAngle : Float;
+	var closePath : Bool;
+	var endAngle : Float;
+	var innerRadius : Float;
+	var startAngle : Float;
 }
