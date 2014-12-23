@@ -2,9 +2,6 @@ package jsfl;
 
 typedef Item =
 {
-	function addData(name:String, type:String, data:Dynamic) : Void;
-	function getData(name:String) : Dynamic;
-	function hasData(name:String) : Bool;
 	var itemType : String;
 	var linkageBaseClass : String;
 	var linkageClassName : String;
@@ -15,5 +12,9 @@ typedef Item =
 	var linkageImportForRS : Bool;
 	var linkageURL : String;
 	var name : String;
+	
+	function addData(name:String, type:String, data:Dynamic) : Void;
+	function getData(name:String) : Dynamic;
+	function hasData(name:String) : Bool;
 	function removeData(name:String) : Void;
 }
