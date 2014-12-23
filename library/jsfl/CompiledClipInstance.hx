@@ -1,7 +1,7 @@
 package jsfl;
 
 typedef CompiledClipInstance =
-{> Instance,
+{>Instance,
 	var accName : String;
 	var actionScript : String;
 	var description : String;

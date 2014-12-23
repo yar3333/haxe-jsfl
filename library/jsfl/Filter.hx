@@ -2,7 +2,7 @@ package jsfl;
 
 typedef Filter =
 {
- 	var angle : Float;
+	var angle : Float;
 	var blurX : Float;
 	var blurY : Float;
 	var brightness : Float;

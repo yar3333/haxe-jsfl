@@ -1,9 +1,11 @@
 package jsfl;
 
 typedef SymbolInstance =
-{> Instance,
+{>Instance,
 	var accName : String;
 	var actionScript : String;
+	var backgroundColor : String;
+	var bitmapRenderMode : String;
 	var blendMode : String;
 	var buttonTracking : String;
 	var cacheAsBitmap : Bool;
@@ -25,4 +27,6 @@ typedef SymbolInstance =
 	var silent : Bool;
 	var symbolType : String;
 	var tabIndex : Int;
+	var usesBackgroundColor : Bool;
+	var visible : Bool;
 }

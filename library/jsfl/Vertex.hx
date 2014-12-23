@@ -1,9 +1,10 @@
 package jsfl;
 
-extern class Vertex
+typedef Vertex =
 {
-	function getHalfEdge() : HalfEdge;
-	function setLocation(x:Float, y:Float) : Void;
 	var x : Float;
 	var y : Float;
+	
+	function getHalfEdge() : HalfEdge;
+	function setLocation(x:Float, y:Float) : Void;
 }

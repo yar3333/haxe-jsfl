@@ -1,17 +1,19 @@
 package jsfl;
 
-extern class Tools
+typedef Tools =
 {
 	var activeTool : ToolObj;
 	var altIsDown : Bool;
-	function constrainPoint(pt1:JSFLPoint, pt2:JSFLPoint) : JSFLPoint;
 	var ctlIsDown : Bool;
-	function getKeyDown() : Int;
 	var mouseIsDown : Bool;
 	var penDownLoc : JSFLPoint;
 	var penLoc : JSFLPoint;
-	function setCursor(cursor:Int) : Void;
 	var shiftIsDown : Bool;
-	function snapPoint(pt:JSFLPoint) : JSFLPoint;
 	var toolObjs : Array<ToolObj>;
+	
+	function constrainPoint(pt1:JSFLPoint, pt2:JSFLPoint) : JSFLPoint;
+	function getKeyDown() : Int;
+	function setCreatingBbox(placeholder:Int) : Void;
+	function setCursor(cursor:Int) : Void;
+	function snapPoint(pt:JSFLPoint) : JSFLPoint;
 }

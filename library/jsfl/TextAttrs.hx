@@ -16,7 +16,7 @@ typedef TextAttrs =
 	var letterSpacing : Int;
 	var lineSpacing : Int;
 	var rightMargin : Int;
-	var rotation : Int;
+	var rotation : Bool;
 	var size : Int;
 	var target : String;
 	var url : String;

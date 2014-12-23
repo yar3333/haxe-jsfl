@@ -1,7 +1,7 @@
 package jsfl;
 
 typedef Instance =
-{> Element,
+{>Element,
 	var instanceType : String;
 	var libraryItem : Item;
 }

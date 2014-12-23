@@ -1,15 +1,19 @@
 package jsfl;
 
 typedef Shape =
-{> Element,
-	function beginEdit() : Void;
+{>Element,
 	var contours : Array<Contour>;
-	function deleteEdge(index:Int) : Void;
 	var edges : Array<Edge>;
-	function endEdit() : Void;
 	var isDrawingObject : Bool;
 	var isGroup : Bool;
 	var isOvalObject : Bool;
 	var isRectangleObject : Bool;
+	var members : Array<Dynamic>;
+	var numCubicSegments : Int;
 	var vertices : Array<Vertex>;
+	
+	function beginEdit() : Void;
+	function deleteEdge(index:Int) : Void;
+	function endEdit() : Void;
+	function getCubicSegmentPoints(cubicSegmentIndex:Int) : Array<JSFLPoint>;
 }

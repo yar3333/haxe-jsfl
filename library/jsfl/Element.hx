@@ -22,7 +22,7 @@ typedef Element =
 	var width : Float;
 	var x : Float;
 	var y : Float;
-
+	
 	function getPersistentData(name:String) : Dynamic;
 	function getTransformationPoint() : JSFLPoint;
 	function hasPersistentData(name:String) : Bool;

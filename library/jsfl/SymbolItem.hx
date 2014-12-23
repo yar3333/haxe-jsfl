@@ -1,10 +1,7 @@
 package jsfl;
 
 typedef SymbolItem =
-{> Item,
-	function convertToCompiledClip() : Void;
-	function exportSWC(outputURI:String) : Void;
-	function exportSWF(outputURI:String) : Void;
+{>Item,
 	var scalingGrid : Bool;
 	var scalingGridRect : Rectangle;
 	var sourceAutoUpdate : Bool;
@@ -12,4 +9,8 @@ typedef SymbolItem =
 	var sourceLibraryName : String;
 	var symbolType : String;
 	var timeline : Timeline;
+	
+	function convertToCompiledClip() : Void;
+	function exportSWC(outputURI:String) : Void;
+	function exportSWF(outputURI:String) : Void;
 }
