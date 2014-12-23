@@ -2,6 +2,6 @@ package jsfl;
 
 typedef TextRun =
 {
-	var textAttrs : String;
+	var textAttrs : TextAttrs;
 	var characters : String;
 }
