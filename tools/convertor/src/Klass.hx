@@ -1,9 +1,10 @@
 using Lambda;
-using StringParserTools;
 using stdlib.StringTools;
 
 class Klass
 {
+	public var asTypedef:Bool;
+	
 	public var name : String;
 	public var inheritsFrom : String;
 	
@@ -11,8 +12,9 @@ class Klass
 	public var attributes : Array<Attribute>;
 	public var methods : Array<Method>;
 	
-	public function new(name:String, inheritsFrom:String, constants:Array<Constant>, attributes:Array<Attribute>, methods:Array<Method>)
+	public function new(asTypedef:Bool, name:String, inheritsFrom:String, constants:Array<Constant>, attributes:Array<Attribute>, methods:Array<Method>)
 	{
+		this.asTypedef = asTypedef;
 		this.name = name;
 		this.inheritsFrom = inheritsFrom;
 		this.constants = constants;
@@ -30,7 +32,14 @@ class Klass
 		
 		if (imports.length > 0) r += "\n";
 		
-		r += "@:native(\"" + (nativePack != "" ? nativePack + "." : "") + name + "\") extern class " + name.capitalize() + (inheritsFrom != null ? " extends " + inheritsFrom.capitalize() : "") + "\n{\n";
+		if (!asTypedef)
+		{
+			r += "@:native(\"" + (nativePack != "" ? nativePack + "." : "") + name + "\") extern class " + name.capitalize() + (inheritsFrom != null ? " extends " + inheritsFrom.capitalize() : "") + "\n{\n";
+		}
+		else
+		{
+			r += "typedef " + name.capitalize() + " =\n{" + (inheritsFrom != null ? ">" + inheritsFrom.capitalize() + "," : "") + "\n";
+		}
 		
 		for (constant in constants)
 		{

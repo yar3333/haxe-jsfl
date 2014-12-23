@@ -1,19 +1,18 @@
 import hant.Log;
-import htmlparser.HtmlNodeElement;
 import htmlparser.HtmlDocument;
-import haxe.io.Path;
+import htmlparser.HtmlNodeElement;
 import stdlib.Serializer;
 import stdlib.Unserializer;
-import sys.FileSystem;
 import sys.io.File;
-import neko.Lib;
 using stdlib.StringTools;
+using Lambda;
 
 class Main
 {
 	static var log = new Log();
 	
-	static var reType = ~/\b(?:integer|string|boolean)\b/i;
+	static var staticClasses = [ "fl", "FLfile" ]; // force methods to be statci
+	static var classNotTypedefs = [ "fl", "FLfile" ]; // other will be typedefs
 	
 	static function main()
 	{
@@ -106,12 +105,13 @@ class Main
 		log.start("Process chapters");
 		structurize(body, chapters, function(chapter, inner)
 		{
-			
 			reChapter.match(chapter.find(">span")[0].innerHTML);
 			var name = reChapter.matched(1);
 			
+			//if (name != "compilerErrors") return; ///////////////////////////////////////
+			
 			log.start("Class '" + name + "'");
-			var klass = new Klass(name, getClassInherits(inner), [], [], []);
+			var klass = new Klass(!classNotTypedefs.has(name), name, getClassInherits(inner), [], [], []);
 			
 			var fields = inner.find(">div.cls_017>span.cls_017").map(function(a) return a.parent);
 			structurize(inner, fields, function(field, inner)
@@ -134,7 +134,7 @@ class Main
 		
 		if (name.endsWith("()"))
 		{
-			var method = new Method(null, name.substr(0, name.length - 2), []);
+			var method = new Method(null, name.substr(0, name.length - 2), [], "", staticClasses.has(klass.name));
 			processMethod(method, inner);
 			klass.methods.push(method);
 		}
@@ -150,35 +150,60 @@ class Main
 	
 	static function processMethod(method:Method, inner:HtmlNodeElement)
 	{
-		var titles = inner.find(">div.cls_020>span.cls_020").map(function(a) return a.parent);
+		var titles = inner.find(">div.cls_020");
 		structurize(inner, titles, function(title, inner)
 		{
-			var titleName = title.find(">span")[0].innerHTML;
+			var titleName = title.find(">span.cls_020")[0].innerHTML;
 			//log.trace("Title: " + titleName);
-			/*
+			
 			switch (titleName)
 			{
-				case "Description": attribute.desc = inner.toString().
-			}*/
+				case "Parameters":
+					processParams(method.params, inner);
+				case "Returns": 
+					method.type = extractType(inner.toString().stripTags(), "Void");
+				case "Description":
+					method.desc = inner.toString().stripTags().trim();
+					if (method.desc.startsWith("Method; "))
+					{
+						method.desc = method.desc.substr("Method; ".length).ltrim().capitalize();
+					}
+			}
+		});
+	}
+	
+	static function processParams(params:Array<MethodParam>, inner:HtmlNodeElement)
+	{
+		var nodes = inner.find(">div.cls_011");
+		if (nodes.length == 0) nodes = inner.find(">div.cls_029");
+		//log.trace("param.inner = " + nodes.length);
+		structurize(inner, nodes, function(node, _)
+		{
+			var nameNode = node.find(">span")[0];
+			if (nameNode != null)
+			{
+				nameNode.remove();
+				var desc = node.toString().stripTags().trim();
+				var type = extractType(desc);
+				var optional = desc.startsWith("An optional");
+				params.push( { name:nameNode.innerHTML, type:type, optional:optional, desc:desc } );
+			}
 		});
 	}
 	
 	static function processAttribute(attribute:Attribute, inner:HtmlNodeElement)
 	{
-		var titles = inner.find(">div.cls_020>span.cls_020").map(function(a) return a.parent);
+		var titles = inner.find(">div.cls_020");
 		structurize(inner, titles, function(title, inner)
 		{
-			var titleName = title.find(">span")[0].innerHTML;
+			var titleName = title.find(">span.cls_020")[0].innerHTML;
 			//log.trace("Title: " + titleName);
 			
 			switch (titleName)
 			{
 				case "Description":
-					attribute.desc = stdlib.StringTools.stripTags(inner.toString());
-					if (reType.match(attribute.desc))
-					{
-						attribute.type = Types.convert(reType.matched(0));
-					}
+					attribute.desc = inner.toString().stripTags().trim();
+					attribute.type = extractType(attribute.desc);
 			}
 		});
 	}
@@ -208,5 +233,18 @@ class Main
 			var inner = new HtmlNodeElement("root", []); for (line in lines) inner.addChild(Unserializer.run(Serializer.run(line)));
 			f(items[i], inner);
 		}
+	}
+	
+	static function extractType(s:String, def="Dynamic")
+	{
+		if (s.startsWith("An object")) return "Dynamic";
+		
+		var reType = ~/\b(?:integer|string|boolean)\b/i;
+		if (reType.match(s))
+		{
+			return Types.convert(reType.matched(0));
+		}
+		
+		return def;
 	}
 }
