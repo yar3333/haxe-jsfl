@@ -14,6 +14,17 @@ class Main
 	static var staticClasses = [ "fl", "FLfile" ]; // force methods to be statci
 	static var classNotTypedefs = [ "fl", "FLfile" ]; // other will be typedefs
 	
+	static var knownTypes =
+	[
+		"integer" => "Int",
+		"string" => "String",
+		"boolean" => "Bool",
+		"true" => "Bool",
+		"false" => "Bool",
+		"floating-point" => "Float",
+		"float value" => "Float"
+	];
+	
 	static function main()
 	{
 		log.start("Parse html");
@@ -97,18 +108,25 @@ class Main
 		var reChapter = ~/^Chapter\s*\d+:\s*([_a-zA-Z][_a-zA-Z0-9]+)\s*object$/;
 		
 		log.start("Find classes");
-		var chapters = body.find(">div.cls_010>span.cls_010")
-			.map(function(span) return reChapter.match(span.innerHTML) ? span.parent : null)
-			.filter(function(a) return a != null);
+			var chapters = body.find(">div.cls_010>span.cls_010")
+				.map(function(span) return reChapter.match(span.innerHTML) ? span.parent : null)
+				.filter(function(a) return a != null);
+			
+			for (chapter in chapters)
+			{
+				reChapter.match(chapter.find(">span")[0].innerHTML.trim());
+				var name = reChapter.matched(1);
+				knownTypes.set(name.toLowerCase(), name.capitalize());
+			}
 		log.finishOk(Std.string(chapters.length));
 			
 		log.start("Process chapters");
 		structurize(body, chapters, function(chapter, inner)
 		{
-			reChapter.match(chapter.find(">span")[0].innerHTML);
+			reChapter.match(chapter.find(">span")[0].innerHTML.trim());
 			var name = reChapter.matched(1);
 			
-			//if (name != "compilerErrors") return; ///////////////////////////////////////
+			//if (name != "Contour") return; ///////////////////////////////////////
 			
 			log.start("Class '" + name + "'");
 			var klass = new Klass(!classNotTypedefs.has(name), name, getClassInherits(inner), [], [], []);
@@ -174,9 +192,7 @@ class Main
 	
 	static function processParams(params:Array<MethodParam>, inner:HtmlNodeElement)
 	{
-		var nodes = inner.find(">div.cls_011");
-		if (nodes.length == 0) nodes = inner.find(">div.cls_029");
-		//log.trace("param.inner = " + nodes.length);
+		var nodes = inner.children.filter(function(a) return a.name == "div" && [ "cls_011", "cls_029" ].has(a.getAttribute("class")));
 		structurize(inner, nodes, function(node, _)
 		{
 			var nameNode = node.find(">span")[0];
@@ -186,7 +202,7 @@ class Main
 				var desc = node.toString().stripTags().trim();
 				var type = extractType(desc);
 				var optional = desc.startsWith("An optional");
-				params.push( { name:nameNode.innerHTML, type:type, optional:optional, desc:desc } );
+				params.push( { name:nameNode.innerHTML.trim(), type:type, optional:optional, desc:desc } );
 			}
 		});
 	}
@@ -237,12 +253,39 @@ class Main
 	
 	static function extractType(s:String, def="Dynamic")
 	{
-		if (s.startsWith("An object")) return "Dynamic";
+		s = s.toLowerCase();
 		
-		var reType = ~/\b(?:integer|string|boolean)\b/i;
-		if (reType.match(s))
+		if (s.startsWith("an object")) return "Dynamic";
+		
+		var bestType = null;
+		var bestN = 1e9;
+		var arr = false;
+		for (key in knownTypes.keys())
 		{
-			return Types.convert(reType.matched(0));
+			var n = s.indexOf("array of " + key);
+			if (n >= 0 && n < bestN)
+			{
+				bestType = key;
+				bestN = n;
+				arr = true;
+			}
+			n = s.indexOf(key);
+			if (n >= 0 && n < bestN)
+			{
+				bestType = key;
+				bestN = n;
+				arr = false;
+			}
+		}
+		
+		if (bestType != null)
+		{
+			var r = knownTypes.get(bestType);
+			if (arr)
+			{
+				r = "Array<" + r + ">";
+			}
+			return r;
 		}
 		
 		return def;
