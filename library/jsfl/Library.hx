@@ -2,6 +2,8 @@ package jsfl;
 
 extern class Library
 {
+	var items : Array<Item>;
+	
 	function addItemToDocument(position:JSFLPoint, ?namePath:String) : Bool;
 	function addNewItem(type:String, ?namePath:String) : Bool;
 	function deleteItem(?namePath:String) : Bool;
@@ -14,7 +16,6 @@ extern class Library
 	function getSelectedItems() : Array<Item>;
 	function importEmbeddedSWF(linkageName:String, swfData:Dynamic, ?libName:String) : Void;
 	function itemExists(namePath:String) : Bool;
-	var items : Array<Item>;
 	function moveToFolder(folderPath:String, ?itemToMove:String, ?bReplace:Bool) : Bool;
 	function newFolder(?folderPath:String) : Bool;
 	function renameItem(name:String) : Bool;
