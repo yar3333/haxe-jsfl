@@ -10,16 +10,13 @@ class Klass
 	public var attributes : Array<Attribute>;
 	public var methods : Array<Method>;
 	
-	public var implementedBy : Array<Implement>;
-	
-	public function new(name:String, inheritsFrom:String, constants:Array<Constant>, attributes:Array<Attribute>, methods:Array<Method>, implementedBy:Array<Implement>)
+	public function new(name:String, inheritsFrom:String, constants:Array<Constant>, attributes:Array<Attribute>, methods:Array<Method>)
 	{
 		this.name = name;
 		this.inheritsFrom = inheritsFrom;
 		this.constants = constants;
 		this.attributes = attributes;
 		this.methods = methods;
-		this.implementedBy = implementedBy;
 	}
 	
 	public function toString(pack:String, imports:Array<String>, nativePack="") : String

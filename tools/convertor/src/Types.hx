@@ -5,6 +5,8 @@ class Types
 {
 	public static function convert(type:String) : String
 	{
+		if (type == null) return "???";
+		
 		type = type.trim();
 		
 		if (type.endsWith(" array"))
