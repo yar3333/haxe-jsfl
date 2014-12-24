@@ -18,7 +18,7 @@ class Attribute
 	public function toString() : String
 	{
 		var r = "";
-		/*if (desc != null && desc != "")
+		if (desc != null && desc != "")
 		{
 			r += "\t/**\n";
 			if (desc!= null && desc != "")
@@ -26,7 +26,7 @@ class Attribute
 				r += desc.split("\n").map(function(s) return "\t * " + s + "\n").join("");
 			}
 			r += "\t *" + "/\n";
-		}*/
+		}
 		r += "\tvar " + name + " : " + type + ";\n";
 		return r;
 	}

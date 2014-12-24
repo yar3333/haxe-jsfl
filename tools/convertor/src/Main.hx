@@ -423,6 +423,15 @@ class Main
 			{
 				case "Description":
 					attribute.desc = inner.toString().stripTags().trim();
+					if (attribute.desc.startsWith("Property; "))
+					{
+						attribute.desc = attribute.desc.substr("Property; ".length).ltrim().capitalize();
+					}
+					else
+					if (attribute.desc.startsWith("Read-only property; "))
+					{
+						attribute.desc = "Read-only. " + attribute.desc.substr("Read-only property; ".length).ltrim().capitalize();
+					}
 					attribute.type = findType(klassName + "." + attribute.name, attribute.desc, "Dynamic");
 			}
 		});
