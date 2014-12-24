@@ -22,7 +22,7 @@ class Method
 	{
 		var r = "";
 		
-		/*if (desc != null && desc != "")
+		if (desc != null && desc != "")
 		{
 			r += "\t/**\n";
 			if (desc != null && desc != "" || params.exists(function(p) return p.desc != null && p.desc != ""))
@@ -34,7 +34,7 @@ class Method
 				}
 			}
 			r += "\t *" + "/\n";
-		}*/
+		}
 		
 		if (next != null && name == next.name)
 		{
