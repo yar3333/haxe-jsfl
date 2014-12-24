@@ -106,11 +106,10 @@ typedef Document =
 	 * Read-only. The current ScreenOutline object for the document. Before accessing the object for the first time,make sure to use document.allowScreens() to determine whether the property exists.
 	 */
 	var screenOutline : ScreenOutline;
-	var selection : Array<Dynamic>;
 	/**
 	 * An array of the selected objects in the document. If nothing is selected, returns an array of length zero. If nodocument is open, returns null.To add objects to the array, you must first select them in one of the following ways:тАв  Manually select object(s) on the Stage.тАв  Use one of the selection methods, such as document.setSelectionRect(), document.setSelectionBounds(),document.mouseClick(), document.mouseDblClk(), or document.selectAll().тАв  Manually select a frame or frames.тАв  Use one of the methods of the Timeline object to select a frame or frames, such astimeline.getSelectedFrames(), timeline.setSelectedFrames(), or timeline.selectAllFrames().тАв  Specify all the elements in a particular frame (see Element object). See the first example below.тАв  Create an array of one or more elements and then assign that array to the document.selection array. See the thirdexample below.
 	 */
-	var selection : Array<Array<Dynamic>>;
+	var selection : Array<Dynamic>;
 	/**
 	 * A Boolean value that specifies whether the object is accessible. This is equivalent to the inverse logic of theMake Movie Accessible setting in the Accessibility panel. That is, if document.silent is true, it is the same as theMake Movie Accessible option being unchecked. If it is false, it is the same as the Make Movie Accessible optionbeing checked.
 	 */
@@ -826,7 +825,6 @@ typedef Document =
 	 * @name A string that specifies the name of the library item to use.
 	 */
 	function swapElement(name:String) : Void;
-	function synchronizeWithHeadVersion() : Bool;
 	/**
 	 * Swaps the Stroke and Fill colors.
 	 */
