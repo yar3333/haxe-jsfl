@@ -73,6 +73,7 @@ class Main
 		"Document.setElementTextAttr.attrValue" => "String",
 		"Document.xmlPanel" => "Dynamic<String>",
 		"Document.setSelectionRect.rect" => "JSFLRect",
+		"Document.selection" => "Array<Dynamic>",
 		
 		"Filter.type" => "String",
 		
@@ -317,8 +318,6 @@ class Main
 			reChapter.match(chapter.find(">span")[0].innerHTML.trim());
 			var name = reChapter.matched(1);
 			
-			//if (name != "Contour") return; ///////////////////////////////////////
-			
 			log.start("Class '" + name + "'");
 			var klass = new Klass(!classNotTypedefs.has(name), name, getClassInherits(inner), [], [], []);
 			
@@ -366,7 +365,6 @@ class Main
 		structurize(inner, titles, function(title, inner)
 		{
 			var titleName = title.find(">span.cls_020")[0].innerHTML;
-			//log.trace("Title: " + titleName);
 			
 			switch (titleName)
 			{
@@ -417,7 +415,6 @@ class Main
 		structurize(inner, titles, function(title, inner)
 		{
 			var titleName = title.find(">span.cls_020")[0].innerHTML;
-			//log.trace("Title: " + titleName);
 			
 			switch (titleName)
 			{
