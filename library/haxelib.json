@@ -4,8 +4,8 @@
   "tags": ["flash"],
   "description": "Externs for the Flash jsfl API. This is improved version of the original plefferts's library (http://lib.haxe.org/legacy/p/jsfl).",
   "contributors": ["yar3333"],
-  "releasenote": "Init.",
-  "version": "1.0.0",
+  "releasenote": "Major improvements: automatic convert from flash_cs5_extending.pdf book, so now we have comments for most classes' methods and properties.",
+  "version": "1.0.1",
   "url": "https://bitbucket.org/yar3333/haxe-jsfl",
   "dependencies": {}
 }
