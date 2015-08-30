@@ -18,6 +18,15 @@ package jsfl;
 	static var configDirectory : String;
 	static var configURI : String;
 	static var contactSensitiveSelection : Bool;
+	
+	/**
+	 * Silently copies a library item from a document without exposing the item in the Flash Pro user interface. Call the document.clipPaste() method to paste the item into the new document.
+	 * @param fileURI A string, expressed as a file:/// URI, that contains the path to the FLA or XFL file.
+	 * @param libraryItemPath A string, that specifies the path to the library item to be copied.
+	 * @return A Boolean value: true if the copy succeeds; false otherwise.
+	 */
+	static function copyLibraryItem(fileURI:String, libraryItemPath:String):Bool;
+	
 	static function createDocument(?docType:String) : Document;
 	static var createNewDocList : Array<String>;
 	static var createNewDocListType : Array<String>;
