@@ -4,8 +4,8 @@
   "tags": ["flash","extern"],
   "description": "Externs for the Flash jsfl API. This is improved version of the original plefferts's library (http://lib.haxe.org/legacy/p/jsfl).",
   "contributors": ["yar3333"],
-  "releasenote": "Missing file bugfix.",
-  "version": "1.1.1",
+  "releasenote": "Minors.",
+  "version": "1.1.2",
   "url": "https://bitbucket.org/yar3333/haxe-jsfl",
   "dependencies": {}
 }
