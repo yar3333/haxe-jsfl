@@ -704,7 +704,7 @@ package jsfl;
 	 * @param xmlString A string containing XML that defines a dialog.
 	 * @return XMLUI
 	 */
-	static function xmlPanelFromString(xmlString) : XMLUI;
+	static function xmlPanelFromString(xmlString:String) : XMLUI;
 	
 	/**
 	 * Flash MX 2004.
