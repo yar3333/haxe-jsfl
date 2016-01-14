@@ -4,7 +4,7 @@ package jsfl;
  * Flash Pro CS6.
  * The SpriteSheetExporter object is a subclass of the Item object.
  */
-typedef SpriteSheetExporter = {>Item
+typedef SpriteSheetExporter = {>Item,
 	/**
 	 * Property; A string indicating which algorithm to use to pack the sprite sheet. Valid values are "basic" (the default), and "maxRects".
 	 */
@@ -106,7 +106,7 @@ typedef SpriteSheetExporter = {>Item
 	 * @param endFrame The last frame of the symbol to include in the sprite sheet.
 	 * @return Boolean
 	 */
-	function addSymbol(symbol:Dynamic, ?name:String, ?beginFrame:Int, ?endFrame):Bool;
+	function addSymbol(symbol:Dynamic, ?name:String, ?beginFrame:Int, ?endFrame:Int):Bool;
 	/**
 	 * Initializes the SpriteSheetExporter to create a new sprite sheet. This method is not necessary if you create the exporter from new. It is necessary if you reuse the same exporter to make multiple sprite sheets.
 	 */
