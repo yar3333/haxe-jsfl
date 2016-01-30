@@ -1,71 +1,510 @@
 package jsfl;
+import jsfl.Filter.FilterName;
+import jsfl.Item.ItemType;
+import jsfl.SymbolInstance.BlendMode;
 
 typedef Document =
 {
 	/**
+	 * Flash MX 2004.
 	 * A string that is equivalent to the Name field in the Accessibility panel. Screen readers identify objects byreading the name aloud.
 	 */
 	var accName : String;
 	/**
+	 * Flash MX 2004.
+	 * Stores specified data with a document. Data is written to the FLA file and is available to JavaScript when thefile reopens.
+	 * @param name A string that specifies the name of the data to add.
+	 * @param type A string that defines the type of data to add. Acceptable values are "integer", "integerArray", "double",
+	 * @param data The value to add. Valid types depend on the type parameter.
+	 */
+	function addDataToDocument(name:String, type:DocumentDataType, data:Dynamic) : Void;
+	/**
+	 * Flash MX 2004.
+	 * Stores specified data with the selected object(s). Data is written to the FLA file and is available to JavaScriptwhen the file reopens. Only symbols and bitmaps support persistent data.
+	 * @param name A string that specifies the name of the persistent data.
+	 * @param type Defines the type of data. Acceptable values are "integer", "integerArray", "double", "doubleArray",
+	 * @param data The value to add. Valid types depend on the type parameter.
+	 */
+	function addDataToSelection(name:String, type:DocumentDataType, data:Dynamic) : Void;
+	/**
+	 * Flash 8.
+	 * Applies a filter to the selected objects and places the filter at the end of the Filters list.
+	 * @param filterName A string specifying the filter to be added to the Filters list and enabled for the selected object(s).
+	 */
+	function addFilter(filterName:FilterName) : Void;
+	/**
+	 * Flash MX 2004.
+	 * Adds an item from any open document or library to the specified Document object.
+	 * @param position A point that specifies the x and y coordinates of the location at which to add the item. It uses the center of
+	 * @param item An Item object that specifies the item to add and the library from which to add it (see Item object).
+	 */
+	function addItem(position:JSFLPoint, item:Item) : Bool;
+	/**
+	 * Flash MX 2004.
+	 * Adds a new path between two points. The method uses the documentтАЩs current stroke attributes and adds thepath on the current frame and current layer. This method works in the same way as clicking on the line tool anddrawing a line.
+	 * @param startPoint A pair of floating-point numbers that specify the x and y coordinates where the line starts.
+	 * @param endPoint A pair of floating-point numbers that specify the x and y coordinates where the line ends.
+	 */
+	function addNewLine(startPoint:JSFLPoint, endPoint:JSFLPoint) : Void;
+	/**
+	 * Flash MX 2004.
+	 * Adds a new Oval object in the specified bounding rectangle. This method performs the same operation as theOval tool. The method uses the documentтАЩs current default stroke and fill attributes and adds the oval on the currentframe and layer. If both bSuppressFill and bSuppressStroke are set to true, the method has no effect.
+	 * @param boundingRectangle A rectangle that specifies the bounds of the oval to be added. For information on the format of
+	 * @param bSuppressFill A Boolean value that, if set to true, causes the method to create the shape without a fill. The default
+	 * @param bSuppressStroke A Boolean value that, if set to true, causes the method to create the shape without a stroke. The
+	 */
+	function addNewOval(boundingRectangle:JSFLRect, ?bSuppressFill:Bool, ?bSuppressStroke:Bool) : Void;
+	/**
+	 * Flash CS4 Professional.
+	 * Adds a new oval primitive fitting into the specified bounds. This method performs the same operation as theOval Primitive tool. The oval primitive uses the document's current default stroke and fill attributes and is added onthe current frame and layer. If both bSuppressFill and bSuppressStroke are set to true, the method has no effect.
+	 * @param boundingRectangle A rectangle that specifies the bounds within which the new oval primitive is added. For
+	 * @param bSuppressFill A Boolean value that, if set to true, causes the method to create the oval without a fill. The default
+	 * @param bSuppressStroke A Boolean value that, if set to true, causes the method to create the oval without a stroke. The
+	 */
+	function addNewPrimitiveOval(boundingRectangle:JSFLRect, ?bSuppressFill:Bool, ?bSuppressStroke:Bool) : Void;
+	/**
+	 * Flash CS4 Professional.
+	 * Adds a new rectangle primitive fitting into the specified bounds. This method performs the same operationas the Rectangle Primitive tool. The rectangle primitive uses the document's current default stroke and fill attributesand is added on the current frame and layer. If both bSuppressFill and bSuppressStroke are set to true, the method hasno effect.
+	 * @param rect A rectangle that specifies the bounds within which the new rectangle primitive is added. For information on the
+	 * @param roundness An integer between 0 and 999 that represents the number of points used to specify how much the corners
+	 * @param bSuppressFill A Boolean value that, if set to true, causes the method to create the rectangle without a fill. The
+	 * @param bSuppressStroke A Boolean value that, if set to true, causes the method to create the rectangle without a stroke.
+	 */
+	function addNewPrimitiveRectangle(rect:JSFLRect, roundness:Int, ?bSuppressFill:Bool, ?bSuppressStroke:Bool) : Void;
+	/**
+	 * Flash MX 2004.
+	 * Adds a new publish profile and makes it the current one.
+	 * @param profileName The unique name of the new profile. If you do not specify a name, a default name is provided. This
+	 */
+	function addNewPublishProfile(?profileName:String) : Int;
+	/**
+	 * Flash MX 2004.
+	 * Adds a new rectangle or rounded rectangle, fitting it into the specified bounds. This method performs thesame operation as the Rectangle tool. The method uses the documentтАЩs current default stroke and fill attributes andadds the rectangle on the current frame and layer. If both bSuppressFill and bSuppressStroke are set to true, the methodhas no effect.
+	 * @param boundingRectangle A rectangle that specifies the bounds within which the new rectangle is added, in the format
+	 * @param roundness An integer value from 0 to 999 that specifies the roundness to use for the corners. The value is specified
+	 * @param bSuppressFill A Boolean value that, if set to true, causes the method to create the shape without a fill. The default
+	 * @param bSuppressStroke A Boolean value that, if set to true, causes the method to create the rectangle without a stroke.
+	 */
+	function addNewRectangle(boundingRectangle:JSFLRect, roundness:Int, ?bSuppressFill:Bool, ?bSuppressStroke:Bool) : Void;
+	/**
+	 * Flash MX 2004.
+	 * Adds a new scene (Timeline object) as the next scene after the currently selected scene and makes the newscene the currently selected scene. If the specified scene name already exists, the scene is not added and the methodreturns an error.
+	 * @param name Specifies the name of the scene. If you do not specify a name, a new scene name is generated.
+	 */
+	function addNewScene(?name:String) : Bool;
+	/**
+	 * Flash MX 2004; optional text parameter added in Flash CS3 Professional.
+	 * Inserts a new text field and optionally places text into the field. If you omit the text parameter, you can calldocument.setTextString() to populate the text field.
+	 * @param boundingRectangle Specifies the size and location of the text field. For information on the format of
+	 * @param text An optional string that specifies the text to place in the field. If you omit this parameter, the selection in the Tools
+	 */
+	function addNewText(boundingRectangle:JSFLRect, ?text:String) : Void;
+	/**
+	 * Flash MX 2004.
+	 * Aligns the selection.
+	 * @param alignMode A string that specifies how to align the selection. Acceptable values are "left", "right", "top",
+	 * @param bUseDocumentBounds A Boolean value that, if set to true, causes the method to align to the bounds of the document.
+	 */
+	function align(alignMode:AlignMode, ?bUseDocumentBounds:Bool) : Void;
+	/**
+	 * Flash MX 2004. Dropped in Flash Professional CC.
+	 * Use before using the document.screenOutline property. If this method returns the value true, you cansafely access document.screenOutline; Flash displays an error if you access document.screenOutline in adocument without screens.
+	 */
+	function allowScreens() : Bool;
+	/**
+	 * Flash MX 2004.
+	 * Arranges the selection on the Stage. This method applies only to non-shape objects.
+	 * @param arrangeMode Specifies the direction in which to move the selection. Acceptable values are "back", "backward",
+	 */
+	function arrange(arrangeMode:ArrangeMode) : Void;
+	/**
+	 * Flash CS3 Professional.
 	 * A Boolean value that describes whether the instances placed on the Stage are automatically added to user-defined timeline classes. The default value is true.
 	 */
 	var as3AutoDeclare : Bool;
 	/**
+	 * Flash CS3 Professional.
 	 * A string that describes the ActionScript 3.0 тАЬdialectтАЭ being used in the specified document. The default valueis "AS3". If you wish to allow prototype classes, as permitted in earlier ECMAScript specifications, set this value to "ES".
 	 */
 	var as3Dialect : String;
 	/**
+	 * Flash CS3 Professional.
 	 * An integer that specifies in which frame to export ActionScript 3.0 classes. By default, classes are exported inFrame 1.
 	 */
 	var as3ExportFrame : Int;
 	/**
+	 * Flash CS3 Professional.
 	 * A Boolean value that specifies whether the ActionScript 3.0 compiler should compile with the Strict Modeoption turned on (true) or off (false). Strict Mode causes warnings to be reported as errors, which means thatcompilation will not succeed if those errors exist. The default value is true.
 	 */
 	var as3StrictMode : Bool;
 	/**
+	 * Flash CS3 Professional.
 	 * A Boolean value that specifies whether the ActionScript 3.0 compiler should compile with the WarningsMode option turned on (true) or off (false). Warnings Mode causes extra warnings to be reported that are useful fordiscovering incompatibilities when updating ActionScript 2.0 code to ActionScript 3.0. The default value is true.
 	 */
 	var as3WarningsMode : Bool;
 	/**
+	 * Flash CS3 Professional.
 	 * An integer that specifies which version of ActionScript is being used in the specified document. Acceptablevalues are 1, 2, and 3.To determine the targeted player version for the specified document, use document.getPlayerVersion(); thismethod returns a string, so it can be used by Flash┬о  LiteтДв players.
 	 */
 	var asVersion : Int;
 	/**
+	 * Flash MX 2004.
 	 * A Boolean value that is equivalent to the Auto Label check box in the Accessibility panel. You can use thisproperty to tell Flash to automatically label objects on the Stage with the text associated with them.
 	 */
 	var autoLabel : Bool;
 	/**
+	 * Flash MX 2004.
 	 * The color of the background, in one of the following formats:тАв  A string in the format "#RRGGBB" or "#RRGGBBAA"тАв  A hexadecimal number in the format 0xRRGGBBтАв  An integer that represents the decimal equivalent of a hexadecimal number
 	 */
 	var backgroundColor : Dynamic;
 	/**
+	 * Flash MX 2004.
+	 * Performs a break-apart operation on the current selection.
+	 */
+	function breakApart() : Void;
+	/**
+	 * Flash MX 2004.
+	 * Indicates whether the Edit Symbols menu and functionality are enabled. This is not related to whether theselection can be edited. This method should not be used to test whether fl.getDocumentDOM().enterEditMode()is allowed.
+	 */
+	function canEditSymbol() : Bool;
+	/**
+	 * Flash MX 2004.
+	 * Determines whether you can use the document.revert() or fl.revertDocument() method successfully.
+	 */
+	function canRevert() : Bool;
+	/**
+	 * Flash MX 2004.
+	 * Determines whether you can use the document.testMovie() method successfully.
+	 */
+	function canTestMovie() : Bool;
+	/**
+	 * Flash MX 2004.
+	 * Determines whether you can use the document.testScene() method successfully.
+	 */
+	function canTestScene() : Bool;
+	/**
+	 * Flash 8.
+	 * Changes the index of the filter in the Filters list. Any filters above or below newIndex are shifted up or downaccordingly. For example, using the filters shown below, if you issue the commandfl.getDocumentDOM().changeFilterOrder(3, 0), the filters are rearranged as follows:BeforeAfterblurFilterdropShadowFilterglowFiltergradiengradientBevelFilterblurFilterdropShadowFilterglotBevelFilterwFilterIf you then issue the command fl.getDocumentDOM().changeFilterOrder(0, 2), the filters are rearranged as follows:BeforeAftergradientBevelFilterblurFilterdropShadowFiltblurFilterdropShadowFiltergradientBevelFiltergloerglowFilterwFilter
+	 * @param oldIndex An integer that represents the current zero-based index position of the filter you want to reposition in the
+	 * @param newIndex An integer that represents the new index position of the filter in the list.
+	 */
+	function changeFilterOrder(oldIndex:Int, newIndex:Int) : Void;
+	/**
+	 * Flash MX 2004.
+	 * Copies the current selection from the document to the Clipboard.To copy a string to the Clipboard, use fl.clipCopyString().
+	 */
+	function clipCopy() : Void;
+	/**
+	 * Flash MX 2004.
+	 * Cuts the current selection from the document and writes it to the Clipboard.
+	 */
+	function clipCut() : Void;
+	/**
+	 * Flash MX 2004.
+	 * Pastes the contents of the Clipboard into the document.
+	 * @param bInPlace A Boolean value that, when set to true, causes the method to perform a paste-in-place operation. The
+	 */
+	function clipPaste(bInPlace:Bool) : Void;
+	/**
+	 * Flash MX 2004.
+	 * Closes the specified document.
+	 * @param bPromptToSaveChanges A Boolean value that, when set to true, causes the method to prompt the user with a dialog
+	 */
+	function close(?bPromptToSaveChanges:Bool) : Void;
+	/**
+	 * Flash MX 2004.
+	 * Converts lines to fills on the selected objects.
+	 */
+	function convertLinesToFills() : Void;
+	/**
+	 * Flash Professional CC.
+	 * Converts selected objects in the current frame to a bitmap and inserts the bitmap into the library.
+	 */
+	function convertSelectionToBitmap() : Bool;
+	/**
+	 * Flash MX 2004.
+	 * Converts the selected Stage item(s) to a new symbol. For information on defining linkage and shared assetproperties for a symbol, see Item object.
+	 * @param type A string that specifies the type of symbol to create. Acceptable values are "movie clip", "button", and "graphics".
+	 * @param name A string that specifies the name for the new symbol, which must be unique. You can submit an empty string to
+	 * @param registrationPoint Specifies the point that represents the 0,0 location for the symbol. Acceptable values are: "top
+	 */
+	function convertToSymbol(type:ItemType, name:String, registrationPoint:RegistrationPoint) : SymbolInstance;
+	/**
+	 * Flash 8.
+	 * Uses the top selected drawing object to crop all selected drawing objects underneath it. This method returnsfalse if there are no drawing objects selected or if any of the selected items are not drawing objects.
+	 */
+	function crop() : Bool;
+	/**
+	 * Flash MX 2004.
 	 * A string that specifies the name of the active publish profile for the specified document.
 	 */
 	var currentPublishProfile : String;
 	/**
+	 * Flash MX 2004.
 	 * An integer that specifies the index of the active timeline. You can set the active timeline by changing the valueof this property; the effect is almost equivalent to calling document.editScene(). The only difference is that youdonтАЩt get an error message if the index of the timeline is not valid; the property is simply not set, which causes silentfailure.
 	 */
 	var currentTimeline : Int;
 	/**
+	 * Flash Professional CS5.
+	 * Invokes the Debug Movie command on the document.
+	 * @param abortIfErrorsExist Boolean; the default value is false. If set to true, the debug session will not start and the .swf
+	 */
+	function debugMovie(?abortIfErrorsExist:Bool) : Void;
+	/**
+	 * Flash 8.
+	 * Deletes the envelope (bounding box that contains one or more objects) from the selected objects.
+	 */
+	function deleteEnvelope() : Bool;
+	/**
+	 * Flash MX 2004.
+	 * Deletes the currently active profile, if there is more than one. There must be at least one profile left.
+	 */
+	function deletePublishProfile() : Int;
+	/**
+	 * Flash MX 2004.
+	 * Deletes the current scene (Timeline object) and, if the deleted scene was not the last one, sets the next sceneas the current Timeline object. If the deleted scene was the last one, it sets the first object as the current Timeline object.If only one Timeline object (scene) exists, it returns the value false.
+	 */
+	function deleteScene() : Bool;
+	/**
+	 * Flash MX 2004.
+	 * Deletes the current selection on the Stage. Displays an error message if there is no selection.
+	 */
+	function deleteSelection() : Void;
+	/**
+	 * Flash MX 2004.
 	 * A string that is equivalent to the Description field in the Accessibility panel. The description is read by thescreen reader.
 	 */
 	var description : String;
 	/**
+	 * Flash 8.
+	 * Disables all filters on the selected objects.
+	 */
+	function disableAllFilters() : Void;
+	/**
+	 * Flash 8.
+	 * Disables the specified filter in the Filters list.
+	 * @param filterIndex An integer representing the zero-based index of the filter in the Filters list.
+	 */
+	function disableFilter(filterIndex:Int) : Void;
+	/**
+	 * Flash 8.
+	 * Disables all filters except the one at the specified position in the Filters list.
+	 * @param enabledFilterIndex An integer representing the zero-based index of the filter that should remain enabled after
+	 */
+	function disableOtherFilters(enabledFilterIndex:Int) : Void;
+	/**
+	 * Flash MX 2004.
+	 * Distributes the selection.
+	 * @param distributemode A string that specifies where to distribute the selected objects. Acceptable values are "left edge",
+	 * @param bUseDocumentBounds A Boolean value that, when set to true, distributes the selected objects using the bounds of the
+	 */
+	function distribute(distributemode:String, ?bUseDocumentBounds:Bool) : Void;
+	/**
+	 * Flash Professional CC.
+	 * Performs a distribute-to-keyframes operation on the current selection—equivalent to selecting Distribute to KeyFrames. A new keyframe is created for every object. New keyframes are created on the active layer immediately after the active frame
+	 */
+	function distributeToKeyframes() : Void;
+	/**
+	 * Flash MX 2004.
+	 * Performs a distribute-to-layers operation on the current selectionтАФequivalent to selecting Distribute toLayers. This method displays an error if there is no selection.
+	 */
+	function distributeToLayers() : Void;
+	/**
+	 * Flash CS3 Professional.
 	 * A string that specifies the top-level ActionScript 3.0 class associated with the document. If the document isnтАЩtconfigured to use ActionScript 3.0, this property is ignored.
 	 */
 	var docClass : String;
 	/**
+	 * Flash MX 2004.
+	 * Checks the document for persistent data with the specified name.
+	 * @param name A string that specifies the name of the data to check.
+	 */
+	function documentHasData(name:String) : Bool;
+	/**
+	 * Flash MX 2004.
+	 * Duplicates the currently active profile and gives the duplicate version focus.
+	 * @param profileName A string that specifies the unique name of the duplicated profile. If you do not specify a name, the
+	 */
+	function duplicatePublishProfile(profileName:String) : Int;
+	/**
+	 * Flash MX 2004.
+	 * Makes a copy of the currently selected scene, giving the new scene a unique name and making it the currentscene.
+	 */
+	function duplicateScene() : Bool;
+	/**
+	 * Flash MX 2004.
+	 * Duplicates the selection on the Stage.
+	 */
+	function duplicateSelection() : Void;
+	/**
+	 * Flash MX 2004.
+	 * Makes the specified scene the currently selected scene for editing.
+	 * @param index A zero-based integer that specifies which scene to edit.
+	 */
+	function editScene(index:Int) : Void;
+	/**
+	 * Flash 8.
+	 * Enables all the filters on the Filters list for the selected object(s).
+	 */
+	function enableAllFilters() : Void;
+	/**
+	 * Flash 8.
+	 * Enables the specified filter for the selected object(s).
+	 * @param filterIndex An integer specifying the zero-based index of the filter in the Filters list to enable.
+	 */
+	function enableFilter(filterIndex:Int) : Void;
+	/**
+	 * Flash MX 2004.
+	 * Switches the authoring tool into the editing mode specified by the parameter. If no parameter is specified, themethod defaults to symbol-editing mode, which has the same result as right-clicking the symbol to invoke the contextmenu and selecting Edit.
+	 * @param editMode A string that specifies the editing mode. Acceptable values are "inPlace" or "newWindow". If no
+	 */
+	function enterEditMode(?editMode:EditMode) : Void;
+	/**
+	 * Flash MX 2004.
+	 * Exits from symbol-editing mode and returns focus to the next level up from the editing mode. For example,if you are editing a symbol inside another symbol, this method takes you up a level from the symbol you are editing,into the parent symbol.
+	 */
+	function exitEditMode() : Void;
+	/**
+	 * Flash CS6.
+	 * Exports a selected instance of a movie clip, graphic, or button symbol on the Stage to a bitmap in Library.
+	 * @param frameNumber Integer indicating the frame to be exported. 
+	 * @param bitmapName A string representing the name of the bitmap to be added to the Library.
+	 */
+	function exportInstanceToLibrary(frameNumber:Int, bitmapName:String) : Void;
+	/**
+	 * Flash CS6.
+	 * Exports a selected instance of a movie clip, graphic, or button symbol on the Stage to a series of PNG files on disk. If no startFrameNum or endFrameNum is given, the output includes all frames in the Timeline.
+	 * @param outputURI String: The URI to export the PNG Sequence files to. This URI must reference a local file. Example: file:///c|/tests/mytest.png.
+	 * @param startFrameNum Optional. An integer indicating the first frame to be exported. The default is 1.
+	 * @param endFrameNum Optional. An Integer indicating the last frame to be exported. The default is 99999.
+	 * @param matrix Optional. A matrix to be appended to the exported PNG sequence.
+	 */
+	function exportInstanceToPNGSequence(outputURI:String, ?startFrameNum:Int, ?endFrameNum:Int, ?matrix:Matrix) : Void;
+	/**
+	 * Flash 8.
+	 * Exports the document as one or more PNG files. If fileURI is specified and the file already exists, it isoverwritten without warning.
+	 * @param fileURI A string, expressed as a file:/// URI, that specifies the filename for the exported file. If fileURI is an empty
+	 * @param bCurrentPNGSettings A Boolean value that specifies whether to use the current PNG publish settings (true) or to
+	 * @param bCurrentFrame A Boolean value that specifies whether to export only the current frame (true) or to export all
+	 */
+	function exportPNG(?fileURI:String, ?bCurrentPNGSettings:Bool, ?bCurrentFrame:Bool) : Bool;
+	/**
+	 * Flash MX 2004.
+	 * Exports the currently active profile to an XML file.
+	 * @param fileURI A string, expressed as a file:/// URI, that specifies the path of the XML file to which the profile is exported.
+	 */
+	function exportPublishProfile(fileURI:String) : Void;
+	/**
+	 * Flash CS4 Professional.
+	 * Returns a string that specifies, in XML format, the specified profile. If you donтАЩt pass a value for profileName,the current profile is exported.
+	 * @param profileName A string that specifies the name of the profile to export to an XML string. This parameter is optional.
+	 */
+	function exportPublishProfileString(?profileName:String) : String;
+	/**
+	 * Flash MX 2004.
+	 * Exports the document in the Flash SWF format.
+	 * @param fileURI A string, expressed as a file:/// URI, that specifies the name of the exported file. If fileURI is empty or not
+	 * @param bCurrentSettings A Boolean value that, when set to true, causes Flash to use current SWF publish settings.
+	 */
+	function exportSWF(?fileURI:String, ?bCurrentSettings:Bool) : Void;
+	/**
+	 * Flash Professional CC.
+	 * Exports a video from the document and optionally sends it to Adobe Media Encoder to convert the video. 
+	 * @param fileURI A string, expressed as a file:/// URI, that specifies the fully qualified path to which the video is saved.
+	 * @param convertInAdobeMediaEncoder A boolen value that specifies whether or not to send the recorded video to Adobe Media Encoder. The default value is true, which sends the video to Adobe Media Encoder. This parameter is optional.
+	 * @param transparent A boolean value that specifies whether or not the background should be included in the video. The default value is false, which includes the movie background in the video. This parameter is optional.
+	 * @param stopAtFrame A boolean value that specifies whether the video should be recorded until it reaches a certain frame or a specific time. The default value is true, stop when a certain frame is reached. This parameter is optional.
+	 * @param stopAtFrameOrTime If stopAtFrame is true, this is an int specifying the number of frames to record. If stopAtFrame is false, this is the number of milliseconds to record. The default value is 0 which, if stopAtFrame is true, will record all the frames in the main timeline. This parameter is optional.
+	 */
+	function exportVideo(fileURI:String, ?convertInAdobeMediaEncoder:Bool, ?transparent:Bool, ?stopAtFrame:Bool, ?stopAtFrameOrTime:Int) : Void;
+	/**
+	 * Flash CS4 Professional.
 	 * A string that contains a list of items in the documentтАЩs ActionScript 3.0 External library path, which specifiesthe location of SWC files used as runtime shared libraries. Items in the string are delimited by semi-colons. In theauthoring tool, the items are specified by choosing File &gt; Publish Settings and then choosing ActionScript 3.0 ScriptSettings on the Flash tab.
 	 */
 	var externalLibraryPath : String;
 	/**
+	 * Flash MX 2004.
 	 * A Boolean value that specifies whether the children of the specified object are accessible. This is equivalentto the inverse logic of the Make Child Objects Accessible setting in the Accessibility panel. That is, if forceSimple istrue, it is the same as the Make Child Object Accessible option being unchecked. If forceSimple is false, it is thesame as the Make Child Object Accessible option being checked.
 	 */
 	var forceSimple : Bool;
 	/**
+	 * Flash MX 2004.
 	 * A float value that specifies the number of frames displayed per second when the SWF file plays; the default is12. Setting this property is the same as setting the default frame rate in the Document Properties dialog box (Modify&gt; Document) in the FLA file.
 	 */
 	var frameRate : Float;
+	/**
+	 * Flash MX 2004.
+	 * Identical to retrieving the value of the To Stage button in the Align panel. Gets the preference that can be usedfor document.align(), document.distribute(), document.match(), and document.space() methods on thedocument.
+	 */
+	function getAlignToDocument() : Bool;
+	/**
+	 * Flash 8.
+	 * Returns a string that specifies the blending mode for the selected object(s).
+	 */
+	function getBlendMode() : BlendMode;
+	/**
+	 * Retrieves the fill object of the selected shape or, if specified, of the Tools panel and Property inspector.
+	 * @objectToFill A string that specifies the location of the fill object. The following values are valid:
+	 */
+	function getCustomFill(?objectToFill:String) : Fill;
+	/**
+	 * Returns the stroke object of the selected shape or, if specified, of the Tools panel and Property inspector.
+	 * @locationOfStroke A string that specifies the location of the stroke object. The following values are valid:
+	 */
+	function getCustomStroke(locationOfStroke:String) : Stroke;
+	/**
+	 * Retrieves the value of the specified data. The type returned depends on the type of data that was stored.
+	 * @name A string that specifies the name of the data to return.
+	 */
+	function getDataFromDocument(name:String) : Dynamic;
+	/**
+	 * Gets the specified Element property for the current selection. For a list of acceptable values, see the Propertysummary table for the Element object.
+	 * @propertyName A string that specifies the name of the Element property for which to retrieve the value.
+	 */
+	function getElementProperty(propertyName:String) : Dynamic;
+	/**
+	 * Gets a specific TextAttrs property of the selected Text objects. Selected objects that are not text fields areignored. For a list of property names and expected values, see the Property summary table for the TextAttrs object. Seealso document.setElementTextAttr().
+	 * @attrName A string that specifies the name of the TextAttrs property to be returned. For a list of property names and
+	 * @startIndex An integer that specifies the index of first character, with 0 (zero) specifying the first position. This
+	 * @endIndex An integer that specifies the index of last character. This parameter is optional.
+	 */
+	function getElementTextAttr(attrName:String, ?startIndex:Int, ?endIndex:Int) : Dynamic;
+	/**
+	 * Returns an array that contains the list of filters applied to the currently selected object(s). If multiple objectsare
+	 *  selected and they donтАЩt have identical filters, this method returns the
+	 *  list of filters applied to the first selected object.
+	 */
+	function getFilters() : Array<Filter>;
+	/**
+	 * Returns a string containing the XML metadata associated with the document, or an empty string if there is nometadata.
+	 */
+	function getMetadata() : String;
+	/**
+	 * Returns the mobile XML settings for the document.
+	 */
+	function getMobileSettings() : String;
+	/**
+	 * Returns a string that represents the targeted player version for the specified document. For a list of values thatthis method can return, see document.setPlayerVersion().To determine which version of ActionScript is being targeted in the specified file, use document.asVersion.
+	 */
+	function getPlayerVersion() : String;
+	/**
+	 * Gets the bounding rectangle of the current selection. If a selection is non-rectangular, the smallest rectangleencompassing the entire selection is returned. The rectangle is based on the document space or, when in edit mode,the registration point (also origin point or zero point) of the symbol being edited.
+	 */
+	function getSelectionRect() : JSFLRect;
+	/**
+	 * Gets the currently selected text. If the optional parameters are not passed, the current text selection is used. Iftext is not currently opened for editing, the whole text string is returned. If only startIndex is passed, the string startingat that index and ending at the end of the field is returned. If startIndex and endIndex are passed, the string startingfrom startIndex up to, but not including, endIndex is returned.If there are several text fields selected, the concatenation of all the strings is returned.
+	 * @startIndex An integer that is an index of first character to get. This parameter is optional.
+	 * @endIndex An integer that is an index of last character to get. This parameter is optional.
+	 */
+	function getTextString(?startIndex:Int, ?endIndex:Int) : String;
+	/**
+	 * Retrieves the current Timeline object in the document. The current timeline can be the current scene, thecurrent symbol being edited, or the current screen.
+	 */
+	function getTimeline() : Timeline;
+	/**
+	 * Gets the location of the transformation point of the current selection. You can use the transformation pointfor commutations such as rotate and skew.Note: Transformation points are relative to different locations, depending on the type of item selected. For moreinformation, see document.setTransformationPoint().
+	 */
+	function getTransformationPoint() : JSFLPoint;
 	/**
 	 * An integer that specifies the height of the document (Stage) in pixels.
 	 */
@@ -134,339 +573,7 @@ typedef Document =
 	 * Specifies the zoom percent of the Stage at authoring time. A value of 1 equals 100 percent zoom, 8 equals 800percent, .5 equals 50 percent, and so on.
 	 */
 	var zoomFactor : Float;
-	
-	/**
-	 * Stores specified data with a document. Data is written to the FLA file and is available to JavaScript when thefile reopens.
-	 * @name A string that specifies the name of the data to add.
-	 * @type A string that defines the type of data to add. Acceptable values are "integer", "integerArray", "double",
-	 * @data The value to add. Valid types depend on the type parameter.
-	 */
-	function addDataToDocument(name:String, type:String, data:Dynamic) : Void;
-	/**
-	 * Stores specified data with the selected object(s). Data is written to the FLA file and is available to JavaScriptwhen the file reopens. Only symbols and bitmaps support persistent data.
-	 * @name A string that specifies the name of the persistent data.
-	 * @type Defines the type of data. Acceptable values are "integer", "integerArray", "double", "doubleArray",
-	 * @data The value to add. Valid types depend on the type parameter.
-	 */
-	function addDataToSelection(name:String, type:String, data:Dynamic) : Void;
-	/**
-	 * Applies a filter to the selected objects and places the filter at the end of the Filters list.
-	 * @filterName A string specifying the filter to be added to the Filters list and enabled for the selected object(s).
-	 */
-	function addFilter(filterName:String) : Void;
-	/**
-	 * Adds an item from any open document or library to the specified Document object.
-	 * @position A point that specifies the x and y coordinates of the location at which to add the item. It uses the center of
-	 * @item An Item object that specifies the item to add and the library from which to add it (see Item object).
-	 */
-	function addItem(position:JSFLPoint, item:Item) : Bool;
-	/**
-	 * Adds a new path between two points. The method uses the documentтАЩs current stroke attributes and adds thepath on the current frame and current layer. This method works in the same way as clicking on the line tool anddrawing a line.
-	 * @startPoint A pair of floating-point numbers that specify the x and y coordinates where the line starts.
-	 * @endPoint A pair of floating-point numbers that specify the x and y coordinates where the line ends.
-	 */
-	function addNewLine(startPoint:JSFLPoint, endPoint:JSFLPoint) : Void;
-	/**
-	 * Adds a new Oval object in the specified bounding rectangle. This method performs the same operation as theOval tool. The method uses the documentтАЩs current default stroke and fill attributes and adds the oval on the currentframe and layer. If both bSuppressFill and bSuppressStroke are set to true, the method has no effect.
-	 * @boundingRectangle A rectangle that specifies the bounds of the oval to be added. For information on the format of
-	 * @bSuppressFill A Boolean value that, if set to true, causes the method to create the shape without a fill. The default
-	 * @bSuppressStroke A Boolean value that, if set to true, causes the method to create the shape without a stroke. The
-	 */
-	function addNewOval(boundingRectangle:JSFLRect, ?bSuppressFill:Bool, ?bSuppressStroke:Bool) : Void;
-	/**
-	 * Adds a new oval primitive fitting into the specified bounds. This method performs the same operation as theOval Primitive tool. The oval primitive uses the document's current default stroke and fill attributes and is added onthe current frame and layer. If both bSuppressFill and bSuppressStroke are set to true, the method has no effect.
-	 * @boundingRectangle A rectangle that specifies the bounds within which the new oval primitive is added. For
-	 * @bSuppressFill A Boolean value that, if set to true, causes the method to create the oval without a fill. The default
-	 * @bSuppressStroke A Boolean value that, if set to true, causes the method to create the oval without a stroke. The
-	 */
-	function addNewPrimitiveOval(boundingRectangle:JSFLRect, ?bSuppressFill:Bool, ?bSuppressStroke:Bool) : Void;
-	/**
-	 * Adds a new rectangle primitive fitting into the specified bounds. This method performs the same operationas the Rectangle Primitive tool. The rectangle primitive uses the document's current default stroke and fill attributesand is added on the current frame and layer. If both bSuppressFill and bSuppressStroke are set to true, the method hasno effect.
-	 * @rect A rectangle that specifies the bounds within which the new rectangle primitive is added. For information on the
-	 * @roundness An integer between 0 and 999 that represents the number of points used to specify how much the corners
-	 * @bSuppressFill A Boolean value that, if set to true, causes the method to create the rectangle without a fill. The
-	 * @bSuppressStroke A Boolean value that, if set to true, causes the method to create the rectangle without a stroke.
-	 */
-	function addNewPrimitiveRectangle(rect:JSFLRect, roundness:Int, ?bSuppressFill:Bool, ?bSuppressStroke:Bool) : Void;
-	/**
-	 * Adds a new publish profile and makes it the current one.
-	 * @profileName The unique name of the new profile. If you do not specify a name, a default name is provided. This
-	 */
-	function addNewPublishProfile(?profileName:String) : Int;
-	/**
-	 * Adds a new rectangle or rounded rectangle, fitting it into the specified bounds. This method performs thesame operation as the Rectangle tool. The method uses the documentтАЩs current default stroke and fill attributes andadds the rectangle on the current frame and layer. If both bSuppressFill and bSuppressStroke are set to true, the methodhas no effect.
-	 * @boundingRectangle A rectangle that specifies the bounds within which the new rectangle is added, in the format
-	 * @roundness An integer value from 0 to 999 that specifies the roundness to use for the corners. The value is specified
-	 * @bSuppressFill A Boolean value that, if set to true, causes the method to create the shape without a fill. The default
-	 * @bSuppressStroke A Boolean value that, if set to true, causes the method to create the rectangle without a stroke.
-	 */
-	function addNewRectangle(boundingRectangle:JSFLRect, roundness:Int, ?bSuppressFill:Bool, ?bSuppressStroke:Bool) : Void;
-	/**
-	 * Adds a new scene (Timeline object) as the next scene after the currently selected scene and makes the newscene the currently selected scene. If the specified scene name already exists, the scene is not added and the methodreturns an error.
-	 * @name Specifies the name of the scene. If you do not specify a name, a new scene name is generated.
-	 */
-	function addNewScene(?name:String) : Bool;
-	/**
-	 * Inserts a new text field and optionally places text into the field. If you omit the text parameter, you can calldocument.setTextString() to populate the text field.
-	 * @boundingRectangle Specifies the size and location of the text field. For information on the format of
-	 * @text An optional string that specifies the text to place in the field. If you omit this parameter, the selection in the Tools
-	 */
-	function addNewText(boundingRectangle:JSFLRect, ?text:String) : Void;
-	/**
-	 * Aligns the selection.
-	 * @alignMode A string that specifies how to align the selection. Acceptable values are "left", "right", "top",
-	 * @bUseDocumentBounds A Boolean value that, if set to true, causes the method to align to the bounds of the document.
-	 */
-	function align(alignMode:String, ?bUseDocumentBounds:Bool) : Void;
-	/**
-	 * Use before using the document.screenOutline property. If this method returns the value true, you cansafely access document.screenOutline; Flash displays an error if you access document.screenOutline in adocument without screens.
-	 */
-	function allowScreens() : Bool;
-	/**
-	 * Arranges the selection on the Stage. This method applies only to non-shape objects.
-	 * @arrangeMode Specifies the direction in which to move the selection. Acceptable values are "back", "backward",
-	 */
-	function arrange(arrangeMode:String) : Void;
-	/**
-	 * Performs a break-apart operation on the current selection.
-	 */
-	function breakApart() : Void;
-	/**
-	 * Indicates whether the Edit Symbols menu and functionality are enabled. This is not related to whether theselection can be edited. This method should not be used to test whether fl.getDocumentDOM().enterEditMode()is allowed.
-	 */
-	function canEditSymbol() : Bool;
-	/**
-	 * Determines whether you can use the document.revert() or fl.revertDocument() method successfully.
-	 */
-	function canRevert() : Bool;
 	function canSaveAVersion() : Bool;
-	/**
-	 * Determines whether you can use the document.testMovie() method successfully.
-	 */
-	function canTestMovie() : Bool;
-	/**
-	 * Determines whether you can use the document.testScene() method successfully.
-	 */
-	function canTestScene() : Bool;
-	/**
-	 * Changes the index of the filter in the Filters list. Any filters above or below newIndex are shifted up or downaccordingly. For example, using the filters shown below, if you issue the commandfl.getDocumentDOM().changeFilterOrder(3, 0), the filters are rearranged as follows:BeforeAfterblurFilterdropShadowFilterglowFiltergradiengradientBevelFilterblurFilterdropShadowFilterglotBevelFilterwFilterIf you then issue the command fl.getDocumentDOM().changeFilterOrder(0, 2), the filters are rearranged as follows:BeforeAftergradientBevelFilterblurFilterdropShadowFiltblurFilterdropShadowFiltergradientBevelFiltergloerglowFilterwFilter
-	 * @oldIndex An integer that represents the current zero-based index position of the filter you want to reposition in the
-	 * @newIndex An integer that represents the new index position of the filter in the list.
-	 */
-	function changeFilterOrder(oldIndex:Int, newIndex:Int) : Void;
-	/**
-	 * Copies the current selection from the document to the Clipboard.To copy a string to the Clipboard, use fl.clipCopyString().
-	 */
-	function clipCopy() : Void;
-	/**
-	 * Cuts the current selection from the document and writes it to the Clipboard.
-	 */
-	function clipCut() : Void;
-	/**
-	 * Pastes the contents of the Clipboard into the document.
-	 * @bInPlace A Boolean value that, when set to true, causes the method to perform a paste-in-place operation. The
-	 */
-	function clipPaste(bInPlace:Bool) : Void;
-	/**
-	 * Closes the specified document.
-	 * @bPromptToSaveChanges A Boolean value that, when set to true, causes the method to prompt the user with a dialog
-	 */
-	function close(?bPromptToSaveChanges:Bool) : Void;
-	/**
-	 * Converts lines to fills on the selected objects.
-	 */
-	function convertLinesToFills() : Void;
-	/**
-	 * Converts the selected Stage item(s) to a new symbol. For information on defining linkage and shared assetproperties for a symbol, see Item object.
-	 * @type A string that specifies the type of symbol to create. Acceptable values are "movie clip", "button", and
-	 * @name A string that specifies the name for the new symbol, which must be unique. You can submit an empty string to
-	 * @registrationPoint Specifies the point that represents the 0,0 location for the symbol. Acceptable values are: "top
-	 */
-	function convertToSymbol(type:String, name:String, registrationPoint:String) : SymbolInstance;
-	/**
-	 * Uses the top selected drawing object to crop all selected drawing objects underneath it. This method returnsfalse if there are no drawing objects selected or if any of the selected items are not drawing objects.
-	 */
-	function crop() : Bool;
-	/**
-	 * Invokes the Debug Movie command on the document.
-	 * @abortIfErrorsExist Boolean; the default value is false. If set to true, the debug session will not start and the .swf
-	 */
-	function debugMovie(?abortIfErrorsExist:Bool) : Void;
-	/**
-	 * Deletes the envelope (bounding box that contains one or more objects) from the selected objects.
-	 */
-	function deleteEnvelope() : Bool;
-	/**
-	 * Deletes the currently active profile, if there is more than one. There must be at least one profile left.
-	 */
-	function deletePublishProfile() : Int;
-	/**
-	 * Deletes the current scene (Timeline object) and, if the deleted scene was not the last one, sets the next sceneas the current Timeline object. If the deleted scene was the last one, it sets the first object as the current Timeline object.If only one Timeline object (scene) exists, it returns the value false.
-	 */
-	function deleteScene() : Bool;
-	/**
-	 * Deletes the current selection on the Stage. Displays an error message if there is no selection.
-	 */
-	function deleteSelection() : Void;
-	/**
-	 * Disables all filters on the selected objects.
-	 */
-	function disableAllFilters() : Void;
-	/**
-	 * Disables the specified filter in the Filters list.
-	 * @filterIndex An integer representing the zero-based index of the filter in the Filters list.
-	 */
-	function disableFilter(filterIndex:Int) : Void;
-	/**
-	 * Disables all filters except the one at the specified position in the Filters list.
-	 * @enabledFilterIndex An integer representing the zero-based index of the filter that should remain enabled after
-	 */
-	function disableOtherFilters(enabledFilterIndex:Int) : Void;
-	/**
-	 * Distributes the selection.
-	 * @distributemode A string that specifies where to distribute the selected objects. Acceptable values are "left edge",
-	 * @bUseDocumentBounds A Boolean value that, when set to true, distributes the selected objects using the bounds of the
-	 */
-	function distribute(distributemode:String, ?bUseDocumentBounds:Bool) : Void;
-	/**
-	 * Performs a distribute-to-layers operation on the current selectionтАФequivalent to selecting Distribute toLayers. This method displays an error if there is no selection.
-	 */
-	function distributeToLayers() : Void;
-	/**
-	 * Checks the document for persistent data with the specified name.
-	 * @name A string that specifies the name of the data to check.
-	 */
-	function documentHasData(name:String) : Bool;
-	/**
-	 * Duplicates the currently active profile and gives the duplicate version focus.
-	 * @profileName A string that specifies the unique name of the duplicated profile. If you do not specify a name, the
-	 */
-	function duplicatePublishProfile(profileName:String) : Int;
-	/**
-	 * Makes a copy of the currently selected scene, giving the new scene a unique name and making it the currentscene.
-	 */
-	function duplicateScene() : Bool;
-	/**
-	 * Duplicates the selection on the Stage.
-	 */
-	function duplicateSelection() : Void;
-	/**
-	 * Makes the specified scene the currently selected scene for editing.
-	 * @index A zero-based integer that specifies which scene to edit.
-	 */
-	function editScene(index:Int) : Void;
-	/**
-	 * Enables all the filters on the Filters list for the selected object(s).
-	 */
-	function enableAllFilters() : Void;
-	/**
-	 * Enables the specified filter for the selected object(s).
-	 * @filterIndex An integer specifying the zero-based index of the filter in the Filters list to enable.
-	 */
-	function enableFilter(filterIndex:Int) : Void;
-	/**
-	 * Switches the authoring tool into the editing mode specified by the parameter. If no parameter is specified, themethod defaults to symbol-editing mode, which has the same result as right-clicking the symbol to invoke the contextmenu and selecting Edit.
-	 * @editMode A string that specifies the editing mode. Acceptable values are "inPlace" or "newWindow". If no
-	 */
-	function enterEditMode(?editMode:String) : Void;
-	/**
-	 * Exits from symbol-editing mode and returns focus to the next level up from the editing mode. For example,if you are editing a symbol inside another symbol, this method takes you up a level from the symbol you are editing,into the parent symbol.
-	 */
-	function exitEditMode() : Void;
-	/**
-	 * Exports the document as one or more PNG files. If fileURI is specified and the file already exists, it isoverwritten without warning.
-	 * @fileURI A string, expressed as a file:/// URI, that specifies the filename for the exported file. If fileURI is an empty
-	 * @bCurrentPNGSettings A Boolean value that specifies whether to use the current PNG publish settings (true) or to
-	 * @bCurrentFrame A Boolean value that specifies whether to export only the current frame (true) or to export all
-	 */
-	function exportPNG(?fileURI:String, ?bCurrentPNGSettings:Bool, ?bCurrentFrame:Bool) : Bool;
-	/**
-	 * Exports the currently active profile to an XML file.
-	 * @fileURI A string, expressed as a file:/// URI, that specifies the path of the XML file to which the profile is exported.
-	 */
-	function exportPublishProfile(fileURI:String) : Void;
-	/**
-	 * Method: returns a string that specifies, in XML format, the specified profile. If you donтАЩt pass a value for profileName,the current profile is exported.
-	 * @profileName A string that specifies the name of the profile to export to an XML string. This parameter is optional.
-	 */
-	function exportPublishProfileString(?profileName:String) : String;
-	/**
-	 * Exports the document in the Flash SWF format.
-	 * @fileURI A string, expressed as a file:/// URI, that specifies the name of the exported file. If fileURI is empty or not
-	 * @bCurrentSettings A Boolean value that, when set to true, causes Flash to use current SWF publish settings.
-	 */
-	function exportSWF(?fileURI:String, ?bCurrentSettings:Bool) : Void;
-	/**
-	 * Identical to retrieving the value of the To Stage button in the Align panel. Gets the preference that can be usedfor document.align(), document.distribute(), document.match(), and document.space() methods on thedocument.
-	 */
-	function getAlignToDocument() : Bool;
-	/**
-	 * Returns a string that specifies the blending mode for the selected object(s).
-	 */
-	function getBlendMode() : String;
-	/**
-	 * Retrieves the fill object of the selected shape or, if specified, of the Tools panel and Property inspector.
-	 * @objectToFill A string that specifies the location of the fill object. The following values are valid:
-	 */
-	function getCustomFill(?objectToFill:String) : Fill;
-	/**
-	 * Returns the stroke object of the selected shape or, if specified, of the Tools panel and Property inspector.
-	 * @locationOfStroke A string that specifies the location of the stroke object. The following values are valid:
-	 */
-	function getCustomStroke(locationOfStroke:String) : Stroke;
-	/**
-	 * Retrieves the value of the specified data. The type returned depends on the type of data that was stored.
-	 * @name A string that specifies the name of the data to return.
-	 */
-	function getDataFromDocument(name:String) : Dynamic;
-	/**
-	 * Gets the specified Element property for the current selection. For a list of acceptable values, see the Propertysummary table for the Element object.
-	 * @propertyName A string that specifies the name of the Element property for which to retrieve the value.
-	 */
-	function getElementProperty(propertyName:String) : Dynamic;
-	/**
-	 * Gets a specific TextAttrs property of the selected Text objects. Selected objects that are not text fields areignored. For a list of property names and expected values, see the Property summary table for the TextAttrs object. Seealso document.setElementTextAttr().
-	 * @attrName A string that specifies the name of the TextAttrs property to be returned. For a list of property names and
-	 * @startIndex An integer that specifies the index of first character, with 0 (zero) specifying the first position. This
-	 * @endIndex An integer that specifies the index of last character. This parameter is optional.
-	 */
-	function getElementTextAttr(attrName:String, ?startIndex:Int, ?endIndex:Int) : Dynamic;
-	/**
-	 * Returns an array that contains the list of filters applied to the currently selected object(s). If multiple objectsare
-	 *  selected and they donтАЩt have identical filters, this method returns the
-	 *  list of filters applied to the first selected object.
-	 */
-	function getFilters() : Array<Filter>;
-	/**
-	 * Returns a string containing the XML metadata associated with the document, or an empty string if there is nometadata.
-	 */
-	function getMetadata() : String;
-	/**
-	 * Returns the mobile XML settings for the document.
-	 */
-	function getMobileSettings() : String;
-	/**
-	 * Returns a string that represents the targeted player version for the specified document. For a list of values thatthis method can return, see document.setPlayerVersion().To determine which version of ActionScript is being targeted in the specified file, use document.asVersion.
-	 */
-	function getPlayerVersion() : String;
-	/**
-	 * Gets the bounding rectangle of the current selection. If a selection is non-rectangular, the smallest rectangleencompassing the entire selection is returned. The rectangle is based on the document space or, when in edit mode,the registration point (also origin point or zero point) of the symbol being edited.
-	 */
-	function getSelectionRect() : JSFLRect;
-	/**
-	 * Gets the currently selected text. If the optional parameters are not passed, the current text selection is used. Iftext is not currently opened for editing, the whole text string is returned. If only startIndex is passed, the string startingat that index and ending at the end of the field is returned. If startIndex and endIndex are passed, the string startingfrom startIndex up to, but not including, endIndex is returned.If there are several text fields selected, the concatenation of all the strings is returned.
-	 * @startIndex An integer that is an index of first character to get. This parameter is optional.
-	 * @endIndex An integer that is an index of last character to get. This parameter is optional.
-	 */
-	function getTextString(?startIndex:Int, ?endIndex:Int) : String;
-	/**
-	 * Retrieves the current Timeline object in the document. The current timeline can be the current scene, thecurrent symbol being edited, or the current screen.
-	 */
-	function getTimeline() : Timeline;
-	/**
-	 * Gets the location of the transformation point of the current selection. You can use the transformation pointfor commutations such as rotate and skew.Note: Transformation points are relative to different locations, depending on the type of item selected. For moreinformation, see document.setTransformationPoint().
-	 */
-	function getTransformationPoint() : JSFLPoint;
 	/**
 	 * Converts the current selection to a group.
 	 */
@@ -883,4 +990,61 @@ typedef Document =
 	 * @fileURI A string, expressed as a file:/// URI, that specifies the path to the XML file defining the controls in the panel.
 	 */
 	function xmlPanel(fileURI:String) : Dynamic<String>;
+}
+
+@:enum
+abstract DocumentDataType(String) {
+	var Integer = "integer";
+	var IntegerArray = "integerArray";
+	var Double = "double";
+	var DoubleArray = "doubleArray";
+	var string = "string";
+	var ByteArray = "byteArray";
+}
+
+@:enum
+abstract AlignMode(String) {
+	var Left = "left";
+	var Right = "right";
+	var Top = "top";
+	var Bottom = "bottom";
+	var VerticalCenter = "vertical center";
+	var HorizontalCenter = "horizontal center";
+}
+
+@:enum
+abstract ArrangeMode(String) {
+	var Back = "back";
+	var Backward = "backward";
+	var Forward = "forward";
+	var Front = "front";
+}
+
+@:enum
+abstract RegistrationPoint(String) {
+	var TopLeft = "top left";
+	var TopConter = "top center";
+	var TopRight = "top right";
+	var CenterLeft = "center left";
+	var Center = "center";
+	var CenterRight = "center right";
+	var BottomLeft = "bottom left";
+	var BottomCenter = "bottom center";
+	var BottomRight = "bottom right";
+}
+
+@:enum
+abstract DistributeMode(String) {
+	var LeftEdge = "left edge";
+	var HorizontalCenter = "horizontal center";
+	var RightEdge = "right edge";
+	var TopEdge = "top edge";
+	var VerticalCenter = "vertical center";
+	var BottomEdge = "bottom edge";
+}
+
+@:enum
+abstract EditMode(String) {
+	var InPlace = "inPlace";
+	var NewWindow = "newWindow";
 }
