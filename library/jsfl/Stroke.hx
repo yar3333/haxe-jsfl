@@ -229,6 +229,7 @@ abstract StrokeSpace(String) {
 @:enum
 abstract StrokeStyle(String) {
 	var NoStroke = "noStroke";
+	var Hairline = "hairline";
 	var Solid = "solid";
 	var Dashed = "dashed";
 	var Dotted = "dotted";
