@@ -115,3 +115,19 @@ abstract FilterType(String) {
 	var Outer = "outer";
 	var Full = "full";
 }
+
+@:enum
+abstract FilterProperty(String) {
+	var BlurX = "blurX";
+	var BlurY = "blurY";
+	var Quality = "quality";
+	var Angle = "angle";
+	var Distance = "distance";
+	var Strength = "strength";
+	var Knockout = "knockout";
+	var Inner = "inner";
+	var BevelType = "bevelType";
+	var Color = "color";
+	var ShadowColor = "shadowColor";
+	var HighlightColor = "highlightColor";
+}

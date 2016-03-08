@@ -1,6 +1,8 @@
 package jsfl;
 import jsfl.Filter.FilterName;
+import jsfl.Filter.FilterProperty;
 import jsfl.Item.ItemType;
+import jsfl.Stroke.StrokeStyle;
 import jsfl.SymbolInstance.BlendMode;
 
 typedef Document =
@@ -493,7 +495,7 @@ typedef Document =
 	 * Flash CS3 Professional.
 	 * Returns a string that represents the targeted player version for the specified document. For a list of values thatthis method can return, see document.setPlayerVersion().To determine which version of ActionScript is being targeted in the specified file, use document.asVersion.
 	 */
-	function getPlayerVersion() : String;
+	function getPlayerVersion() : PlayerVersion;
 	/**
 	 * Flash Professional CC.
 	 * Indicates whether publishing of the specified persistent data is enabled for the specified format in this document.
@@ -754,50 +756,28 @@ typedef Document =
 	 */
 	function rotateSelection(angle:Float, ?rotationPoint:String) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Saves the document in its default location. This method is equivalent to selecting File &gt; Save.To specify a name for the file (instead of saving it with the same name), use fl.saveDocument().Note: If the file is new and has not been modified or saved, or if the file has not been modified since the last time it wassaved, this method has no effect and false is returned. To allow an unsaved or unmodified file to be saved, usedocument.saveAndCompact() or fl.saveDocumentAs().
 	 * @param bOkToSaveAs An optional parameter that, if true or omitted, and the file was never saved, opens the Save As dialog
 	 */
 	function save(?bOkToSaveAs:Bool) : Bool;
 	/**
+	 * Flash MX 2004. Dropped in Flash Professional CS6.
 	 * Saves and compacts the file. This method is equivalent to selecting File &gt; Save and Compact.Note: If the file has never been saved, this method returns true even if the user cancels the Save As dialog box. Toaccurately determine whether the file was saved, use fl.saveDocumentAs().
 	 * @param bOkToSaveAs An optional parameter that, if true or omitted and the file was never saved, opens the Save As dialog
 	 */
 	function saveAndCompact(?bOkToSaveAs:Bool) : Bool;
 	function saveAVersion() : Bool;
 	/**
-	 * Read-only. The current ScreenOutline object for the document. Before accessing the object for the first time,make sure to use document.allowScreens() to determine whether the property exists.
+	 * Flash CS6.
+	 * Saves a new FLA file based on the existing document object, with an option to save only the current selection on Stage.
+	 * @param URI The URI to export the new FLA file to. This URI must reference a local file. Example: file:///c|/tests/myTest.fla.
+	 * @param selectionOnly A boolean indicating whether only the current Stage selection should be saved to the new FLA file.
+	 * @return 
 	 */
-	var screenOutline : ScreenOutline;
+	function saveAsCopy(URI : String, ?selectionOnly : Bool) : Bool;
 	/**
-	 * An array of the selected objects in the document. If nothing is selected, returns an array of length zero. If nodocument is open, returns null.To add objects to the array, you must first select them in one of the following ways:тАв  Manually select object(s) on the Stage.тАв  Use one of the selection methods, such as document.setSelectionRect(), document.setSelectionBounds(),document.mouseClick(), document.mouseDblClk(), or document.selectAll().тАв  Manually select a frame or frames.тАв  Use one of the methods of the Timeline object to select a frame or frames, such astimeline.getSelectedFrames(), timeline.setSelectedFrames(), or timeline.selectAllFrames().тАв  Specify all the elements in a particular frame (see Element object). See the first example below.тАв  Create an array of one or more elements and then assign that array to the document.selection array. See the thirdexample below.
-	 */
-	var selection : Array<Dynamic>;
-	/**
-	 * A Boolean value that specifies whether the object is accessible. This is equivalent to the inverse logic of theMake Movie Accessible setting in the Accessibility panel. That is, if document.silent is true, it is the same as theMake Movie Accessible option being unchecked. If it is false, it is the same as the Make Movie Accessible optionbeing checked.
-	 */
-	var silent : Bool;
-	/**
-	 * A string that contains a list of items in the documentтАЩs ActionScript 3.0 Source path, which specifies thelocation of ActionScript class files. Items in the string are delimited by semi-colons. In the authoring tool, the itemsare specified by choosing File &gt; Publish Settings and then choosing ActionScript 3.0 Script Settings on the Flash tab.
-	 */
-	var sourcePath : String;
-	/**
-	 * Read-only. An array of Timeline objects (see Timeline object).
-	 */
-	var timelines : Array<Timeline>;
-	/**
-	 * Read-only. A Matrix object. The viewMatrix is used to transform from object space to document space whenthe document is in edit mode. The mouse location, as a tool receives it, is relative to the object that is currently beingedited. See Matrix object.For example, if you create a symbol, double-click to edit it, and draw with the PolyStar tool, the point (0,0) will be atthe registration point of the symbol. However, the drawingLayer object expects values in document space, so if youdraw a line from (0,0) using the drawingLayer, it will start at the upper left corner of the Stage. The viewMatrixproperty provides a way to transform from the space of the object being edited to document space.
-	 */
-	var viewMatrix : Matrix;
-	/**
-	 * An integer that specifies the width of the document (Stage) in pixels.
-	 */
-	var width : Int;
-	/**
-	 * Specifies the zoom percent of the Stage at authoring time. A value of 1 equals 100 percent zoom, 8 equals 800percent, .5 equals 50 percent, and so on.
-	 */
-	var zoomFactor : Float;
-	function canSaveAVersion() : Bool;
-	/**
+	 * Flash MX 2004.
 	 * Scales the selection by a specified amount. This method is equivalent to using the Free Transform tool to scalethe object.
 	 * @param xScale A floating-point value that specifies the amount of x by which to scale.
 	 * @param yScale A floating-point value that specifies the amount of y by which to scale.
@@ -805,40 +785,58 @@ typedef Document =
 	 */
 	function scaleSelection(xScale:Float, yScale:Float, ?whichCorner:String) : Void;
 	/**
+	 * Flash MX 2004. Dropped in Flash Professional CC.
+	 * Read-only. The current ScreenOutline object for the document. Before accessing the object for the first time,make sure to use document.allowScreens() to determine whether the property exists.
+	 */
+	var screenOutline : ScreenOutline;
+	/**
+	 * Flash MX 2004.
 	 * Selects all items on the Stage. This method is equivalent to pressing Control+A (Windows) or Command+A(Macintosh) or selecting Edit &gt; Select All.
 	 */
 	function selectAll() : Void;
 	/**
+	 * Flash MX 2004.
+	 * An array of the selected objects in the document. If nothing is selected, returns an array of length zero. If nodocument is open, returns null.To add objects to the array, you must first select them in one of the following ways:тАв  Manually select object(s) on the Stage.тАв  Use one of the selection methods, such as document.setSelectionRect(), document.setSelectionBounds(),document.mouseClick(), document.mouseDblClk(), or document.selectAll().тАв  Manually select a frame or frames.тАв  Use one of the methods of the Timeline object to select a frame or frames, such astimeline.getSelectedFrames(), timeline.setSelectedFrames(), or timeline.selectAllFrames().тАв  Specify all the elements in a particular frame (see Element object). See the first example below.тАв  Create an array of one or more elements and then assign that array to the document.selection array. See the thirdexample below.
+	 */
+	var selection : Array<Dynamic>;
+	/**
+	 * Flash MX 2004.
 	 * Deselects any selected items.
 	 */
 	function selectNone() : Void;
 	/**
+	 * Flash MX 2004.
 	 * Sets the preferences for document.align(), document.distribute(), document.match(), anddocument.space() to act on the document. This method is equivalent to enabling the To Stage button in the Alignpanel.
 	 * @param bToStage A Boolean value that, if set to true, aligns objects to the Stage. If set to false, it does not.
 	 */
 	function setAlignToDocument(bToStage:Bool) : Void;
 	/**
+	 * Flash 8.
 	 * Sets the blending mode for the selected objects.
 	 * @param mode A string that represents the desired blending mode for the selected objects. Acceptable values are "normal",
 	 */
-	function setBlendMode(mode:String) : Void;
+	function setBlendMode(mode:BlendMode) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Sets the fill settings for the Tools panel, Property inspector, and any selected shapes. This allows a script to setthe fill settings before drawing the object, rather than drawing the object, selecting it, and changing the fill settings. Italso lets a script change the Tools panel and Property inspector fill settings.
 	 * @param fill A Fill object that specifies the fill settings to be used. See Fill object.
 	 */
 	function setCustomFill(fill:Fill) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Sets the stroke settings for the Tools panel, Property inspector, and any selected shapes. This allows a scriptto set the stroke settings before drawing the object, rather than drawing the object, selecting it, and changing the strokesettings. It also lets a script change the Tools panel and Property inspector stroke settings.
 	 * @param stroke A Stroke object.
 	 */
 	function setCustomStroke(stroke:Stroke) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Sets the specified Element property on selected object(s) in the document. This method does nothing if thereis no selection.
 	 * @param property A string that specifies the name of the Element property to set. For a complete list of properties and values,
 	 * @param value An integer that specifies the value to set in the specified Element property.
 	 */
 	function setElementProperty(property:String, value:Int) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Sets the specified textAttrs property of the selected text items to the specified value. For a list of propertynames and allowable values, see the Property summary table for the TextAttrs object. If the optional parameters arenot passed, the method sets the style of the currently selected text range, or the whole text field if no text is selected. Ifonly startIndex is passed, the method sets that characterтАЩs attributes. If startIndex and endIndex are passed, the methodsets the attributes on the characters starting from startIndex up to, but not including, endIndex. If paragraph styles arespecified, all the paragraphs that fall within the range are affected.
 	 * @param attrName A string that specifies the name of the TextAttrs property to change.
 	 * @param attrValue The value to which to set the TextAttrs property. For a list of property names and expected values, see
@@ -847,174 +845,232 @@ typedef Document =
 	 */
 	function setElementTextAttr(attrName:String, attrValue:String, ?startIndex:Int, ?endIndex:Int) : Bool;
 	/**
+	 * Flash MX 2004.
 	 * Changes the fill color of the selection to the specified color. For information on changing the fill color in theTools panel and Property inspector, see document.setCustomFill().
 	 * @param color The color of the fill, in one of the following formats:
 	 */
 	function setFillColor(color:Dynamic) : Void;
 	/**
+	 * Flash 8.
 	 * Sets a specified filter property for the currently selected objects (assuming that the object supports thespecified filter).
-	 * @param property A string specifying the property to be set. Acceptable values are "blurX", "blurY", "quality", angle",
+	 * @param property A string specifying the property to be set. Acceptable values are "blurX", "blurY", "quality", angle", "distance", "strength", "knockout", "inner", "bevelType", "color", "shadowColor", and "highlightColor".
 	 * @param filterIndex An integer specifying the zero-based index of the filter in the Filters list.
 	 * @param value A number or string specifying the value to be set for the specified filter property. Acceptable values depend on
 	 */
-	function setFilterProperty(property:String, filterIndex:Int, value:String) : Void;
+	function setFilterProperty(property:FilterProperty, filterIndex:Int, value:String) : Void;
 	/**
+	 * Flash 8.
 	 * Applies filters to the selected objects. Use this method after calling document.getFilters() and making anydesired changes to the filters.
 	 * @param filterArray The array of filters currently specified.
 	 */
 	function setFilters(filterArray:Array<Filter>) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Methods; sets the opacity of the instance.
 	 * @param opacity An integer between 0 (transparent) and 100 (completely saturated) that adjusts the transparency of the
 	 */
 	function setInstanceAlpha(opacity:Int) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Sets the brightness for the instance.
 	 * @param brightness An integer that specifies brightness as a value from -100 (black) to 100 (white).
 	 */
 	function setInstanceBrightness(brightness:Int) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Sets the tint for the instance.
 	 * @param color The color of the tint, in one of the following formats:
 	 * @param strength An integer between 0 and 100 that specifies the opacity of the tint.
 	 */
 	function setInstanceTint(color:Dynamic, strength:Int) : Void;
 	/**
+	 * Flash 8.
 	 * Sets the XML metadata for the specified document, overwriting any existing metadata. The XML passed asstrMetadata is validated and may be rewritten before being stored. If it cannot be validated as legal XML or violatesspecific rules, then the XML metadata is not set and false is returned. (If false is returned, there is no way to getmore detailed error information.)Note: Even if true is returned, the XML that is set may not be exactly the same string that you passed in. To get the exactvalue to which the XML was set, use document.getMetadata().The format of the metadata is RDF that is compliant with the XMP specification. For more information about RDFand XMP, see the following sources:тАв  The RDF Primer at www.w3.org/TR/rdf-primer/ тАв  The RDF specification at www.w3.org/TR/1999/REC-rdf-syntax-19990222/ тАв  The XMP home page at www.adobe.com/products/xmp/
 	 * @param strMetadata A string containing the XML metadata to be associated with the document. For more information, see
 	 */
 	function setMetadata(strMetadata:String) : Bool;
 	/**
+	 * Flash CS3 Professional.
 	 * Sets the value of an XML settings string in a mobile FLA file. (Most mobile FLA files have an XML string thatdescribes the settings within the document.)
 	 * @param xmlString A string that describes the XML settings in a mobile FLA file.
 	 */
 	function setMobileSettings(xmlString:String) : Bool;
 	/**
+	 * Flash CS3 Professional.
 	 * Specifies a value for a specified property of primitive Oval objects.
 	 * @param propertyName A string that specifies the property to be set. For acceptable values, see the Property summary table for
 	 * @param value The value to be assigned to the property. Acceptable values vary depending on the property you specify in
 	 */
 	function setOvalObjectProperty(propertyName:String, value:Dynamic) : Void;
 	/**
+	 * Flash CS3 Professional.
 	 * Sets the version of the Flash Player targeted by the specified document. This is the same value as that set inthe Publish Settings dialog box.
 	 * @param version A string that represents the version of Flash Player targeted by the specified document. Acceptable values are
 	 */
-	function setPlayerVersion(version:String) : Bool;
+	function setPlayerVersion(version:PlayerVersion) : Bool;
 	/**
+	 * Flash Professional CC.
+	 * Enables or disables publishing of persistent data for an entire document.
+	 * @param format A string that specifies the publishing format. Note: _EMBED_SWF_ is a special built-in publishing format for persistent data. If set, the persistent data will be embedded in the SWF file every time a document is published. The persistent data can then be accessed via ActionScript with the .metaData property. This requires SWF version 19 (Flash Player 11.6) and above and is only for symbol instances onstage. Other custom publishing formats may be specified for custom JSFL scripts if this method is called with the same format.
+	 * @param publish A boolean that indicates whether to enable or disable publishing of persistent data for the specified format.
+	 */
+	function setPublishDocumentData(format : String, publish : Bool) : Void;
+	/**
+	 * Flash CS3 Professional.
 	 * Specifies a value for a specified property of primitive Rectangle objects.
-	 * @param propertyName A string that specifies the property to be set. For acceptable values, see the Property summary table for
-	 * @param value The value to be assigned to the property. Acceptable values vary depending on the property you specify in
+	 * @param propertyName A string that specifies the property to be set. For acceptable values, see the Property summary table for the Rectangle object.
+	 * @param value The value to be assigned to the property. Acceptable values vary depending on the property you specify in propertyName.
 	 */
 	function setRectangleObjectProperty(propertyName:String, value:Dynamic) : Void;
 	/**
+	 * Flash MX 2004; bContactSensitiveSelection parameter added in Flash 8.
 	 * Moves and resizes the selection in a single operation.If you pass a value for bContactSensitiveSelection, it is valid only for this method and doesnтАЩt affect the ContactSensitive selection mode for the document (see fl.contactSensitiveSelection).
-	 * @param boundingRectangle A rectangle that specifies the new location and size of the selection. For information on the
-	 * @param bContactSensitiveSelection A Boolean value that specifies whether the Contact Sensitive selection mode is
+	 * @param boundingRectangle A rectangle that specifies the new location and size of the selection. For information on the format of boundingRectangle, see document.addNewRectangle().
+	 * @param bContactSensitiveSelection A Boolean value that specifies whether the Contact Sensitive selection mode is enabled (true) or disabled (false) during object selection. The default value is false.
 	 */
 	function setSelectionBounds(boundingRectangle:JSFLRect, ?bContactSensitiveSelection:Bool) : Void;
 	/**
+	 * Flash MX 2004; bContactSensitiveSelection parameter added in Flash 8.
 	 * Draws a rectangular selection marquee relative to the Stage, using the specified coordinates. This is unlikedocument.getSelectionRect(), in which the rectangle is relative to the object being edited.This method is equivalent to dragging a rectangle with the Selection tool. An instance must be fully enclosed by therectangle to be selected.If you pass a value for bContactSensitiveSelection, it is valid only for this method and doesnтАЩt affect the ContactSensitive selection mode for the document (see fl.contactSensitiveSelectionNote: Repeating setSelectionRect() using the History panel or menu item repeats the step previous to thesetSelectionRect() operation.
 	 * @param rect A rectangle object to set as selected. For information on the format of rect, see document.addNewRectangle().
-	 * @param bReplaceCurrentSelection A Boolean value that specifies whether the method replaces the current selection
-	 * @param bContactSensitiveSelection A Boolean value that specifies whether the Contact Sensitive selection mode is
+	 * @param bReplaceCurrentSelection A Boolean value that specifies whether the method replaces the current selection (true) or adds to the current selection (false). The default value is true.
+	 * @param bContactSensitiveSelection A Boolean value that specifies whether the Contact Sensitive selection mode is enabled (true) or disabled (false) during object selection. The default value is false.
 	 */
 	function setSelectionRect(rect:JSFLRect, ?bReplaceCurrentSelection:Bool, ?bContactSensitiveSelection:Bool) : Void;
 	/**
+	 * Flash CS4 Professional.
 	 * Specifies the vanishing point for viewing 3D objects.
-	 * @param point A point that specifies the x and y coordinates of the location at which to set the vanishing point for viewing 3D
+	 * @param point A point that specifies the x and y coordinates of the location at which to set the vanishing point for viewing 3D objects.
 	 */
 	function setStageVanishingPoint(point:JSFLPoint) : Void;
 	/**
+	 * Flash CS4 Professional.
 	 * Specifies the perspective angle for viewing 3D objects.
 	 * @param angle A floating point value between 0.0 and 179.0.
 	 */
 	function setStageViewAngle(angle:Float) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Sets the color, width, and style of the selected stroke. For information on changing the stroke in the Toolspanel and Property inspector, see document.setCustomStroke().
 	 * @param color The color of the stroke, in one of the following formats:
 	 * @param size A floating-point value that specifies the new stroke size for the selection.
-	 * @param strokeType A string that specifies the new type of stroke for the selection. Acceptable values are "hairline",
+	 * @param strokeType A string that specifies the new type of stroke for the selection. Acceptable values are "hairline", "solid", "dashed", "dotted", "ragged", "stipple", and "hatched".
 	 */
-	function setStroke(color:Dynamic, size:Float, strokeType:String) : Void;
+	function setStroke(color:Dynamic, size:Float, strokeType:StrokeStyle) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Changes the stroke color of the selection to the specified color. For information on changing the stroke in theTools panel and Property inspector, see document.setCustomStroke().
 	 * @param color The color of the stroke, in one of the following formats:
 	 */
 	function setStrokeColor(color:Dynamic) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Changes the stroke size of the selection to the specified size. For information on changing the stroke in theTools panel and Property inspector, see document.setCustomStroke().
 	 * @param size A floating-point value from 0.25 to 10 that specifies the stroke size. The method ignores precision greater than
 	 */
 	function setStrokeSize(size:Float) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Changes the stroke style of the selection to the specified style. For information on changing the stroke in theTools panel and Property inspector, see document.setCustomStroke().
-	 * @param strokeType A string that specifies the stroke style for the current selection. Acceptable values are "hairline",
+	 * @param strokeType A string that specifies the stroke style for the current selection. Acceptable values are "hairline", "solid","dashed", "dotted", "ragged", "stipple", and "hatched".
 	 */
-	function setStrokeStyle(strokeType:String) : Void;
+	function setStrokeStyle(strokeType:StrokeStyle) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Changes the bounding rectangle for the selected text item to the specified size. This method causes the text toreflow inside the new rectangle; the text item is not scaled or transformed. The values passed in boundingRectangle areused as follows:тАв  If the text is horizontal and static, the method takes into account only the width value passed in boundingRectangle;the height is automatically computed to fit all the text.тАв  If the text is vertical (and therefore static), the method takes into account only the height value passed inboundingRectangle; the width is automatically computed to fit all the text.тАв  If the text is dynamic or input, the method takes into account both the width and height values passed inboundingRectangle, and the resulting rectangle might be larger than needed to fit all the text. However, if theparameters specify a rectangle size that is too small to fit all the text, the method takes into account only the widthvalue passed in boundingRectangle (the height is automatically computed to fit all the text).
-	 * @param boundingRectangle A rectangle that specifies the new size within which the text item should flow. For information
+	 * @param boundingRectangle A rectangle that specifies the new size within which the text item should flow. For information  on the format of boundingRectangle, see document.addNewRectangle().
 	 */
 	function setTextRectangle(boundingRectangle:JSFLRect) : Bool;
 	/**
+	 * Flash MX 2004.
 	 * Sets the text selection of the currently selected text field to the values specified by the startIndex and endIndexvalues. Text editing is activated, if it isnтАЩt already.
-	 * @param startIndex An integer that specifies the position of the first character to select. The first character position is 0
-	 * @param endIndex An integer that specifies the end position of the selection up to, but not including, endIndex. The first
+	 * @param startIndex An integer that specifies the position of the first character to select. The first character position is 0 (zero).
+	 * @param endIndex An integer that specifies the end position of the selection up to, but not including, endIndex. The first character position is 0 (zero).
 	 */
 	function setTextSelection(startIndex:Int, endIndex:Int) : Bool;
 	/**
+	 * Flash MX 2004.
 	 * Inserts a string of text. If the optional parameters are not passed, the existing text selection is replaced; if theText object isnтАЩt currently being edited, the whole text string is replaced. If only startIndex is passed, the string passedis inserted at this position. If startIndex and endIndex are passed, the string passed replaces the segment of text startingfrom startIndex up to, but not including, endIndex.
 	 * @param text A string of the characters to insert in the text field.
-	 * @param startIndex An integer that specifies the first character to replace. The first character position is 0 (zero). This
+	 * @param startIndex An integer that specifies the first character to replace. The first character position is 0 (zero). This parameter is optional.
 	 * @param endIndex An integer that specifies the last character to replace. This parameter is optional.
 	 */
 	function setTextString(text:String, ?startIndex:Int, ?endIndex:Int) : Bool;
 	/**
+	 * Flash MX 2004.
 	 * Sets the position of the current selectionтАЩs transformation point.
 	 * @param transformationPoint A point (for example, {x:10, y:20}, where x and y are floating-point numbers) that
 	 */
 	function setTransformationPoint(transformationPoint:JSFLPoint) : Void;
 	/**
+	 * Flash MX 2004.
+	 * A Boolean value that specifies whether the object is accessible. This is equivalent to the inverse logic of theMake Movie Accessible setting in the Accessibility panel. That is, if document.silent is true, it is the same as theMake Movie Accessible option being unchecked. If it is false, it is the same as the Make Movie Accessible optionbeing checked.
+	 */
+	var silent : Bool;
+	/**
+	 * Flash MX 2004.
 	 * Skews the selection by a specified amount. The effect is the same as using the Free Transform tool to skew theobject.
 	 * @param xSkew A floating-point number that specifies the amount of x by which to skew, measured in degrees.
 	 * @param ySkew A floating-point number that specifies the amount of y by which to skew, measured in degrees.
-	 * @param whichEdge A string that specifies the edge where the transformation occurs; if omitted, skew occurs at the
+	 * @param whichEdge A string that specifies the edge where the transformation occurs; if omitted, skew occurs at the transformation point. Acceptable values are "top center", "right center", "bottom center", and "left center". This parameter is optional.
 	 */
 	function skewSelection(xSkew:Float, ySkew:Float, ?whichEdge:String) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Smooths the curve of each selected fill outline or curved line. This method performs the same action as theSmooth button in the Tools panel.
 	 */
 	function smoothSelection() : Void;
 	/**
+	 * Flash CS4 Professional.
+	 * A string that contains a list of items in the documentтАЩs ActionScript 3.0 Source path, which specifies thelocation of ActionScript class files. Items in the string are delimited by semi-colons. In the authoring tool, the itemsare specified by choosing File &gt; Publish Settings and then choosing ActionScript 3.0 Script Settings on the Flash tab.
+	 */
+	var sourcePath : String;
+	/**
+	 * Flash MX 2004.
 	 * Spaces the objects in the selection evenly.
-	 * @param direction A string that specifies the direction in which to space the objects in the selection. Acceptable values are
-	 * @param bUseDocumentBounds A Boolean value that, when set to true, spaces the objects to the document bounds. Otherwise,
+	 * @param direction A string that specifies the direction in which to space the objects in the selection. Acceptable values are "horizontal" or "vertical".
+	 * @param bUseDocumentBounds A Boolean value that, when set to true, spaces the objects to the document bounds. Otherwise, the method uses the bounds of the selected objects. The default is false. This parameter is optional.
 	 */
 	function space(direction:String, ?bUseDocumentBounds:Bool) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Straightens the currently selected strokes. This method is equivalent to using the Straighten button in theTools panel.
 	 */
 	function straightenSelection() : Void;
 	/**
+	 * Flash MX 2004.
 	 * Swaps the current selection with the specified one. The selection must contain a graphic, button, movie clip,video, or bitmap. This method displays an error message if no object is selected or the given object could not be found.
 	 * @param name A string that specifies the name of the library item to use.
 	 */
 	function swapElement(name:String) : Void;
 	/**
+	 * Flash 8.
 	 * Swaps the Stroke and Fill colors.
 	 */
 	function swapStrokeAndFill() : Void;
-	function synchronizeWithHeadVersion() : Bool;
 	/**
+	 * Flash Professional CS6.
+	 * Property; an integer, returns the JPEG Quality setting from the current Publish Profile in the document.
+	 */
+	var swfJPEGQuality : Int;
+	/**
+	 * Flash MX 2004.
 	 * Executes a Test Movie operation on the document.
 	 * @param abortIfErrorsExist Boolean; the default value is false. If set to true, the test movie session will not start and the .swf
 	 */
 	function testMovie(?abortIfErrorsExist:Bool) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Executes a Test Scene operation on the current scene of the document.
 	 */
 	function testScene() : Void;
 	/**
+	 * Flash MX 2004.
+	 * Read-only. An array of Timeline objects (see Timeline object).
+	 */
+	var timelines : Array<Timeline>;
+	/**
+	 * Flash MX 2004.
 	 * Performs a trace bitmap on the current selection. This method is equivalent to selecting Modify &gt; Bitmap &gt;Trace Bitmap.
 	 * @param threshold An integer that controls the number of colors in your traced bitmap. Acceptable values are integers
 	 * @param minimumArea An integer that specifies the radius measured in pixels. Acceptable values are integers between 1 and
@@ -1023,17 +1079,20 @@ typedef Document =
 	 */
 	function traceBitmap(threshold:Int, minimumArea:Int, curveFit:String, cornerThreshold:String) : Void;
 	/**
+	 * Flash CS4 Professional.
 	 * Method: sets the XYZ position around which the selection is translated or rotated. This method is available only formovie clips.
 	 * @param xyzCoordinate An XYZ coordinate that specifies the center point for 3D rotation or translation.
 	 */
 	function translate3DCenter(xyzCoordinate:{ x:Float, y:Float, z:Float }) : Void;
 	/**
+	 * Flash CS4 Professional.
 	 * Method: applies a 3D translation to the selection. This method is available only for movie clips.
 	 * @param xyzCoordinate An XYZ coordinate that specifies the axes for 3D translation.
 	 * @param bGlobalTransform A Boolean value that specifies whether the transformation mode should be global (true) or local
 	 */
 	function translate3DSelection(xyzCoordinate:{ x:Float, y:Float, z:Float }, bGlobalTransform:Bool) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Performs a general transformation on the current selection by applying the matrix specified in the arguments.For more information, see the element.matrix property.
 	 * @param a A floating-point number that specifies the (0,0) element of the transformation matrix.
 	 * @param b A floating-point number that specifies the (0,1) element of the transformation matrix.
@@ -1042,22 +1101,43 @@ typedef Document =
 	 */
 	function transformSelection(a:Float, b:Float, c:Float, d:Float) : Void;
 	/**
+	 * Flash MX 2004.
 	 * Ungroups the current selection.
 	 */
 	function unGroup() : Void;
 	/**
+	 * Flash 8.
 	 * Combines all selected shapes into a drawing object.
 	 */
 	function union() : Bool;
 	/**
+	 * Flash MX 2004.
 	 * Unlocks all locked elements on the currently selected frame.
 	 */
 	function unlockAllElements() : Void;
 	/**
+	 * Flash MX 2004.
+	 * Read-only. A Matrix object. The viewMatrix is used to transform from object space to document space whenthe document is in edit mode. The mouse location, as a tool receives it, is relative to the object that is currently beingedited. See Matrix object.For example, if you create a symbol, double-click to edit it, and draw with the PolyStar tool, the point (0,0) will be atthe registration point of the symbol. However, the drawingLayer object expects values in document space, so if youdraw a line from (0,0) using the drawingLayer, it will start at the upper left corner of the Stage. The viewMatrixproperty provides a way to transform from the space of the object being edited to document space.
+	 */
+	var viewMatrix : Matrix;
+	/**
+	 * Flash MX 2004.
+	 * An integer that specifies the width of the document (Stage) in pixels.
+	 */
+	var width : Int;
+	function canSaveAVersion() : Bool;
+	function synchronizeWithHeadVersion() : Bool;
+	/**
+	 * Flash MX 2004.
 	 * Posts an XMLUI dialog box. See fl.xmlui.
 	 * @param fileURI A string, expressed as a file:/// URI, that specifies the path to the XML file defining the controls in the panel.
 	 */
 	function xmlPanel(fileURI:String) : Dynamic<String>;
+	/**
+	 * Flash 8.
+	 * Specifies the zoom percent of the Stage at authoring time. A value of 1 equals 100 percent zoom, 8 equals 800percent, .5 equals 50 percent, and so on.
+	 */
+	var zoomFactor : Float;
 }
 
 @:enum
@@ -1115,4 +1195,35 @@ abstract DistributeMode(String) {
 abstract EditMode(String) {
 	var InPlace = "inPlace";
 	var NewWindow = "newWindow";
+}
+
+@:enum
+abstract PlayerVersion(String) {
+	var FlashLite = "FlashLite";
+	var FlashLite11 = "FlashLite11";
+	var FlashLite20 = "FlashLite20";
+	var FlashLite30 = "FlashLite30";
+	var FP1 = "1";
+	var FP2 = "2";
+	var FP3 = "3";
+	var FP4 = "4";
+	var FP5 = "5";
+	var FP6 = "6";
+	var FP7 = "7";
+	var FP8 = "8";
+	var FP9 = "9";
+	var FP10 = "FlashPlayer10";
+	var FP10_3 = "FlashPlayer10.3";
+	var FP11_1 = "FlashPlayer11.1";
+	var FP11_2 = "FlashPlayer11.2";
+	var FP11_3 = "FlashPlayer11.3";
+	var FP11_4 = "FlashPlayer11.4";
+	var FP11_5 = "FlashPlayer11.5";
+	var FP11_6 = "FlashPlayer11.6";
+	var FP11_7 = "FlashPlayer11.7";
+	var AIR1_1 = "AdobeAIR1_1";
+	var AIR2_5 = "AdobeAIR2_5";
+	var AIR3_6 = "AdobeAIR3_6";
+	var ANDROID3_6 = "android3_6";
+	var PF13_6 = "PF13_6";
 }
