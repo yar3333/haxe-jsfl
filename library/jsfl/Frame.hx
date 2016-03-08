@@ -1,4 +1,5 @@
 package jsfl;
+import jsfl.Tween.TweenType;
 
 typedef Frame =
 {
@@ -271,11 +272,4 @@ abstract SoundEffect(String) {
 abstract SoundLoopMode(String) {
 	var Repeat = "repeat";
 	var Loop = "loop";
-}
-
-@:enum
-abstract TweenType(String) {
-	var Motion = "motion";
-	var Shape = "shape";
-	var None = "none";
 }
