@@ -1,4 +1,5 @@
 package jsfl;
+import jsfl.Timeline;
 
 typedef SymbolItem =
 {>Item,

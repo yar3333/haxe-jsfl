@@ -211,7 +211,7 @@ abstract TextLineType(String) {
 }
 
 @:enum
-abstract TextType {
+abstract TextType(String) {
 	var Static = "static";
 	var Dynamic = "dynamic";
 	var Input = "input";
