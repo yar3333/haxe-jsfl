@@ -1,4 +1,5 @@
 package jsfl;
+import jsfl.Document.PlayerVersion;
 
 @:native("fl") extern class Flash
 {
@@ -360,7 +361,7 @@ package jsfl;
      * stageHeight The default Stage height in pixels for the given target. For example, for iPhone the default size is 320 x 480 pixels. For Android, the default size is 480 x 800.
 	 * @return An array of generic objects corresponding to the list of installed Flash Players in the document PI.
 	 */
-	static var installedPlayers : Array<{name:String, version:String, minASVersion:Int, maxASVersion:Int, stageWidth:Int, stageHeight:Int}>;
+	static var installedPlayers : Array<{name:String, version:PlayerVersion, minASVersion:Int, maxASVersion:Int, stageWidth:Int, stageHeight:Int}>;
 	
 	/**
 	 * Flash CS4 Professional.
