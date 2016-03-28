@@ -76,7 +76,8 @@ typedef SoundItem =
 }
 
 @:enum
-abstract BitRate(String) {
+abstract BitRate(String)
+{
 	var Kbps8 = "8 kbps";
 	var Kbps16 = "16 kbps";
 	var Kbps20 = "20 kbps";
@@ -92,7 +93,8 @@ abstract BitRate(String) {
 }
 
 @:enum
-abstract Bits(String) {
+abstract Bits(String)
+{
 	var Bit2 = "2 bit";
 	var Bit3 = "3 bit";
 	var Bit4 = "4 bit";
@@ -100,16 +102,18 @@ abstract Bits(String) {
 }
 
 @:enum
-abstract SoundCompressionType(String) {
+abstract SoundCompressionType(String)
+{
 	var Default = "Default";
 	var ADPCM = "ADPCM";
 	var MP3 = "MP3";
-	var Raw = "Raw";
+	var RAW = "RAW";
 	var Speech = "Speech";
 }
 
 @:enum
-abstract Quality(String) {
+abstract Quality(String)
+{
 	var Fast = "Fast";
 	var Medium = "Medium";
 	var Best = "Best";

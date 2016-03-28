@@ -96,7 +96,8 @@ typedef Item =
 }
 
 @:enum
-abstract ItemType(String) {
+abstract ItemType(String)
+{
 	var Undefined = "undefined";
 	var Component = "component";
 	var MovieClip = "movie clip";
