@@ -133,7 +133,7 @@ abstract FilterProperty(String) {
 }
 
 @:enum
-abstract FilterQuality {
+abstract FilterQuality(String) {
 	var Low = "low";
 	var Medium = "medium";
 	var High = "high";
