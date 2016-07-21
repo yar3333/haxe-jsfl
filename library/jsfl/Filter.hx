@@ -76,7 +76,7 @@ typedef Filter =
 	 * Flash 8.
 	 * A string that specifies the blur quality. Acceptable values are "low", "medium", and "high" ("high" issimilar to a Gaussian blur). This property is defined for Filter objects with a value of "bevelFilter", "blurFilter","dropShadowFilter", "glowFilter", "gradientGlowFilter", or "gradientBevelFilter" for the filter.nameproperty.
 	 */
-	var quality : String;
+	var quality : FilterQuality;
 	/**
 	 * Flash 8.
 	 * A float value that specifies the saturation value of the filter. Acceptable values are from -100 to 100. Thisproperty is defined for Filter objects with a value of "adjustColorFilter" for the filter.name property.
@@ -130,4 +130,11 @@ abstract FilterProperty(String) {
 	var Color = "color";
 	var ShadowColor = "shadowColor";
 	var HighlightColor = "highlightColor";
+}
+
+@:enum
+abstract FilterQuality {
+	var Low = "low";
+	var Medium = "medium";
+	var High = "high";
 }
