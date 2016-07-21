@@ -561,7 +561,7 @@ typedef Document =
 	 * @param showDialog A Boolean value that specifies whether to display the Import dialog box. Specifying true displays the import dialog. If you specify false, the function imports the file using specifications set in the Preferences dialog. The default is true.
 	 * @param showImporterUI A Boolean value that specifies whether to display errors visually (for example, using the Library Conflict dialog box). The default is false.
 	 */
-	function importFile(fileURI:String, ?importToLibrary:Bool, ?showDialog, ?showImporterUI ) : Void;
+	function importFile(fileURI:String, ?importToLibrary:Bool, ?showDialog:Bool, ?showImporterUI:Bool) : Void;
 	/**
 	 * Flash MX 2004.
 	 * Imports a profile from a file.
