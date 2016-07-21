@@ -857,7 +857,7 @@ typedef Document =
 	 * @param filterIndex An integer specifying the zero-based index of the filter in the Filters list.
 	 * @param value A number or string specifying the value to be set for the specified filter property. Acceptable values depend on
 	 */
-	function setFilterProperty(property:FilterProperty, filterIndex:Int, value:String) : Void;
+	function setFilterProperty(property:FilterProperty, filterIndex:Int, value:Dynamic) : Void;
 	/**
 	 * Flash 8.
 	 * Applies filters to the selected objects. Use this method after calling document.getFilters() and making anydesired changes to the filters.
