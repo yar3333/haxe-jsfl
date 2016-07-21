@@ -558,8 +558,10 @@ typedef Document =
 	 * Imports a file into a document. This method performs the same operation as the Import To Library or ImportTo Stage menu command. To import a publish profile, use document.importPublishProfile().
 	 * @param fileURI A string, expressed as a file:/// URI, that specifies the path of the file to import.
 	 * @param importToLibrary A Boolean value that specifies whether to import the file only into the documentтАЩs library (true)
+	 * @param showDialog A Boolean value that specifies whether to display the Import dialog box. Specifying true displays the import dialog. If you specify false, the function imports the file using specifications set in the Preferences dialog. The default is true.
+	 * @param showImporterUI A Boolean value that specifies whether to display errors visually (for example, using the Library Conflict dialog box). The default is false.
 	 */
-	function importFile(fileURI:String, ?importToLibrary:Bool) : Void;
+	function importFile(fileURI:String, ?importToLibrary:Bool, ?showDialog, ?showImporterUI ) : Void;
 	/**
 	 * Flash MX 2004.
 	 * Imports a profile from a file.
