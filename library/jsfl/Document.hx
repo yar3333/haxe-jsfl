@@ -558,8 +558,10 @@ typedef Document =
 	 * Imports a file into a document. This method performs the same operation as the Import To Library or ImportTo Stage menu command. To import a publish profile, use document.importPublishProfile().
 	 * @param fileURI A string, expressed as a file:/// URI, that specifies the path of the file to import.
 	 * @param importToLibrary A Boolean value that specifies whether to import the file only into the documentтАЩs library (true)
+	 * @param showDialog A Boolean value that specifies whether to display the Import dialog box. Specifying true displays the import dialog. If you specify false, the function imports the file using specifications set in the Preferences dialog. The default is true.
+	 * @param showImporterUI A Boolean value that specifies whether to display errors visually (for example, using the Library Conflict dialog box). The default is false.
 	 */
-	function importFile(fileURI:String, ?importToLibrary:Bool) : Void;
+	function importFile(fileURI:String, ?importToLibrary:Bool, ?showDialog:Bool, ?showImporterUI:Bool) : Void;
 	/**
 	 * Flash MX 2004.
 	 * Imports a profile from a file.
@@ -857,7 +859,7 @@ typedef Document =
 	 * @param filterIndex An integer specifying the zero-based index of the filter in the Filters list.
 	 * @param value A number or string specifying the value to be set for the specified filter property. Acceptable values depend on
 	 */
-	function setFilterProperty(property:FilterProperty, filterIndex:Int, value:String) : Void;
+	function setFilterProperty(property:FilterProperty, filterIndex:Int, value:Dynamic) : Void;
 	/**
 	 * Flash 8.
 	 * Applies filters to the selected objects. Use this method after calling document.getFilters() and making anydesired changes to the filters.

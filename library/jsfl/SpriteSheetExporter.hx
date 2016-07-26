@@ -2,9 +2,13 @@ package jsfl;
 
 /**
  * Flash Pro CS6.
- * The SpriteSheetExporter object is a subclass of the Item object.
+ * The SpriteSheetExporter object
  */
-typedef SpriteSheetExporter = {>Item,
+@:native("SpriteSheetExporter") extern class SpriteSheetExporter {
+	/**
+	 * A new SpriteSheetExporter.
+	 */
+	function new();
 	/**
 	 * Flash Pro CS6.
 	 * Adds the specified bitmap or bitmapItem to the sprite sheet object.
@@ -136,7 +140,7 @@ typedef SpriteSheetExporter = {>Item,
 	 * Removes the specified bitmap or bitmapItem from the sprite sheet object.
 	 * @param bitmap The BitmapItem or Bitmap to remove from the sprite sheet.
 	 */
-	function removeBitmap(bitmap:BitmapItem):Void;
+	function removeBitmap(bitmap:Dynamic):Void;
 	/**
 	 * Flash Pro CS6.
 	 * Removes the specified SymbolItem or SymbolInstance from the sprite sheet.
