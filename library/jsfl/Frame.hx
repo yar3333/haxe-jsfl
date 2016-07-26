@@ -75,7 +75,7 @@ typedef Frame =
 	 * Flash Professional CC.
 	 * a Boolean value. Lets you know whether the frame contains any elements.
 	 */
-	function isEmpty() : Bool;
+	var isEmpty : Bool;
 	/**
 	 * Flash Professional CS5.
 	 * A Boolean value. Lets you know whether the current selection is a motion object.
