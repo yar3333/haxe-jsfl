@@ -46,8 +46,7 @@ typedef Tween = {
 	var tweenType : TweenType;
 }
 
-@:enum
-abstract TweenType(String) {
+enum abstract TweenType(String) {
 	var Motion = "motion";
 	var Shape = "shape";
 	var None = "none";

@@ -48,8 +48,7 @@ typedef Parameter =
 	var verbose : Int;
 }
 
-@:enum
-abstract ParameterValueType(String) {
+enum abstract ParameterValueType(String) {
 	var Default = "Default";
 	var Array = "Array";
 	var Object = "Object";

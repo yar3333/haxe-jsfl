@@ -78,8 +78,7 @@ typedef SymbolItem =
 	var timeline : Timeline;
 }
 
-@:enum
-abstract SymbolType(String) {
+enum abstract SymbolType(String) {
 	var Button = "button";
 	var MovieClip = "movie clip";
 	var Graphics = "graphic";

@@ -224,24 +224,21 @@ typedef Frame =
 	var useSingleEaseCurve : Bool;
 }
 
-@:enum
-abstract LabelType(String) {
+enum abstract LabelType(String) {
 	var None = "none";
 	var Name = "name";
 	var Comment = "comment";
 	var Anchor = "anchor";
 }
 
-@:enum
-abstract MotionTweenRotate(String) {
+enum abstract MotionTweenRotate(String) {
 	var None = "none";
 	var Auto = "auto";
 	var Clockwise = "clockwise";
 	var CounterClockwise = "counter-clockwise";
 }
 
-@:enum
-abstract CustomEaseProperty(String) {
+enum abstract CustomEaseProperty(String) {
 	var All = "all";
 	var Position = "position";
 	var Rotation = "rotation";
@@ -250,14 +247,12 @@ abstract CustomEaseProperty(String) {
 	var Filters = "filters";
 }
 
-@:enum
-abstract ShapeTweenBlend(String) {
+enum abstract ShapeTweenBlend(String) {
 	var Distributive = "distributive";
 	var Angular = "angular";
 }
 
-@:enum
-abstract SoundEffect(String) {
+enum abstract SoundEffect(String) {
 	var None = "none";
 	var LeftChannel = "left channel";
 	var RightChannel = "right channel";
@@ -268,8 +263,7 @@ abstract SoundEffect(String) {
 	var Custom = "custom";
 }
 
-@:enum
-abstract SoundLoopMode(String) {
+enum abstract SoundLoopMode(String) {
 	var Repeat = "repeat";
 	var Loop = "loop";
 }

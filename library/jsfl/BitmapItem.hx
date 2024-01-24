@@ -80,8 +80,7 @@ typedef BitmapItem =
 	var vPixels : Int;
 }
 
-@:enum
-abstract BitmapCompressionType(String) {
+enum abstract BitmapCompressionType(String) {
 	var Photo = "photo";
 	var Lossless = "lossless";
 }

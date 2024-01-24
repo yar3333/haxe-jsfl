@@ -54,15 +54,13 @@ typedef Fill =
 	var style : FillStyle;
 }
 
-@:enum
-abstract Overflow(String) {
+enum abstract Overflow(String) {
 	var Extend = "extend";
 	var Repeat = "repeat";
 	var Reflect = "reflect";
 }
 
-@:enum
-abstract FillStyle(String) {
+enum abstract FillStyle(String) {
 	/**
 	 * Added in Flash CS4 Professional.
 	 */

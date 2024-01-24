@@ -162,15 +162,13 @@ typedef SymbolInstance =
 	var visible : Bool;
 }
 
-@:enum
-abstract BitmapRenderMode(String) {
+enum abstract BitmapRenderMode(String) {
 	var None = "none";
 	var Cache = "cache";
 	var Export = "export";
 }
 
-@:enum
-abstract BlendMode(String) {
+enum abstract BlendMode(String) {
 	var Add = "add";
 	var Alpha = "alpha";
 	var Darken = "darken";
@@ -187,14 +185,12 @@ abstract BlendMode(String) {
 	var Subtract = "subtract";
 }
 
-@:enum
-abstract ButtonTracking(String) {
+enum abstract ButtonTracking(String) {
 	var Button = "button";
 	var Menu = "menu";
 }
 
-@:enum
-abstract ColorMode(String) {
+enum abstract ColorMode(String) {
 	var Advanced = "advanced";
 	var Alpha = "alpha";
 	var Brightness = "brightness";
@@ -202,8 +198,7 @@ abstract ColorMode(String) {
 	var Tint = "tint";
 }
 
-@:enum
-abstract LoopMode(String) {
+enum abstract LoopMode(String) {
 	var Loop = "loop";
 	var PlayOnce = "play once";
 	var SingleFrame = "single frame";

@@ -171,8 +171,7 @@ typedef Text =
 	var variableName : String;
 }
 
-@:enum
-abstract FontRenderingMode(String) {
+enum abstract FontRenderingMode(String) {
 	/**
 	 * Renders the text with device fonts.
 	 */
@@ -195,23 +194,20 @@ abstract FontRenderingMode(String) {
 	var CustomThicknessSharpness = "customThicknessSharpness";
 }
 
-@:enum
-abstract Orientation(String) {
+enum abstract Orientation(String) {
 	var Horizontal = "horizontal";
 	var VerticalLeftToTight = "vertical left to right";
 	var VerticalRightToLeft = "vertical right to left";
 }
 
-@:enum 
-abstract TextLineType(String) {
+enum abstract TextLineType(String) {
 	var Multiline = "multiline";
 	var MultilineNoWrap = "multiline no wrap";
 	var Password = "password";
 	var SingleLine = "single line";
 }
 
-@:enum
-abstract TextType(String) {
+enum abstract TextType(String) {
 	var Static = "static";
 	var Dynamic = "dynamic";
 	var Input = "input";

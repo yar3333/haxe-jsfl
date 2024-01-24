@@ -40,8 +40,7 @@ typedef VideoItem =
 	var videoType : VideoType;
 }
 
-@:enum
-abstract VideoType(String) {
+enum abstract VideoType(String) {
 	var EmbeddedVideo = "embedded video";
 	var Video = "video";
 }

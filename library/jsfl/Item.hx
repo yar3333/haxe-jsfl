@@ -95,8 +95,7 @@ typedef Item =
 	function setPublishData(name:String, format:String, publish:Bool) : Void;
 }
 
-@:enum
-abstract ItemType(String)
+enum abstract ItemType(String)
 {
 	var Undefined = "undefined";
 	var Component = "component";

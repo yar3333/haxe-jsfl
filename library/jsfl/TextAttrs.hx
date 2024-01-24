@@ -94,16 +94,14 @@ typedef TextAttrs =
 	var url : String;
 }
 
-@:enum
-abstract TextAlignment(String) {
+enum abstract TextAlignment(String) {
 	var Center = "center";
 	var Justify = "justify";
 	var Left = "left";
 	var Right = "right";
 }
 
-@:enum
-abstract CharacterPosition(String) {
+enum abstract CharacterPosition(String) {
 	var Normal = "normal";
 	var Subscript = "subscript";
 	var Superscript = "superscript";

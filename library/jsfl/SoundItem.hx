@@ -75,8 +75,7 @@ typedef SoundItem =
 	var useImportedMP3Quality : Bool;
 }
 
-@:enum
-abstract BitRate(String)
+enum abstract BitRate(String)
 {
 	var Kbps8 = "8 kbps";
 	var Kbps16 = "16 kbps";
@@ -92,8 +91,7 @@ abstract BitRate(String)
 	var Kbps160 = "160 kbps";
 }
 
-@:enum
-abstract Bits(String)
+enum abstract Bits(String)
 {
 	var Bit2 = "2 bit";
 	var Bit3 = "3 bit";
@@ -101,8 +99,7 @@ abstract Bits(String)
 	var Bit5 = "5 bit";
 }
 
-@:enum
-abstract SoundCompressionType(String)
+enum abstract SoundCompressionType(String)
 {
 	var Default = "Default";
 	var ADPCM = "ADPCM";
@@ -111,8 +108,7 @@ abstract SoundCompressionType(String)
 	var Speech = "Speech";
 }
 
-@:enum
-abstract Quality(String)
+enum abstract Quality(String)
 {
 	var Fast = "Fast";
 	var Medium = "Medium";

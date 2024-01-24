@@ -174,14 +174,12 @@ package jsfl;
 	var version:String;
 }
 
-@:enum
-abstract Algorithm(String) {
+enum abstract Algorithm(String) {
 	var Basic = "basic";
 	var MaxRects = "maxRects";
 }
 
-@:enum
-abstract SpriteSheetExporterFormat(String) {
+enum abstract SpriteSheetExporterFormat(String) {
 	var RGBA8888 = "RGBA8888";
 	var RGB888x = "RGB888x";
 	var RGB8 = "RGB8";

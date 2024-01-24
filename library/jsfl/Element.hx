@@ -159,8 +159,7 @@ typedef Element =
 	var y : Float;
 }
 
-@:enum
-abstract ElementType(String) {
+enum abstract ElementType(String) {
 	var Shape = "shape";
 	var Text = "text";
 	var TlfText = "tlfText";
@@ -168,8 +167,7 @@ abstract ElementType(String) {
 	var ShapeObj = "shapeObj";
 }
 
-@:enum
-abstract PersistentDataType(String) {
+enum abstract PersistentDataType(String) {
 	var Integer = "integer";
 	var IntegerArray = "integerArray";
 	var Double = "double";

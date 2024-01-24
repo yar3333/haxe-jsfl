@@ -329,8 +329,7 @@ typedef Timeline =
 	function stopPlayback() : Void;
 }
 
-@:enum
-abstract LayersToChange(String) {
+enum abstract LayersToChange(String) {
 	var Selected = "selected";
 	var All = "all";
 	var Others = "others";

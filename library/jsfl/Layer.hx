@@ -59,8 +59,7 @@ typedef Layer =
 	var visible : Bool;
 }
 
-@:enum
-abstract LayerType(String) {
+enum abstract LayerType(String) {
 	var Normal = "normal";
 	var Guide = "guide";
 	var Guided = "guided";
@@ -69,8 +68,7 @@ abstract LayerType(String) {
 	var Folder = "folder";
 }
 
-@:enum
-abstract AnimationType(String) {
+enum abstract AnimationType(String) {
 	var None = "none";
 	var MotionObject = "motion object";
 	var IKPose = "IK pose";

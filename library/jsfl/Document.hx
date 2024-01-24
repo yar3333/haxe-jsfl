@@ -1142,8 +1142,7 @@ typedef Document =
 	var zoomFactor : Float;
 }
 
-@:enum
-abstract DocumentDataType(String) {
+enum abstract DocumentDataType(String) {
 	var Integer = "integer";
 	var IntegerArray = "integerArray";
 	var Double = "double";
@@ -1152,8 +1151,7 @@ abstract DocumentDataType(String) {
 	var ByteArray = "byteArray";
 }
 
-@:enum
-abstract AlignMode(String) {
+enum abstract AlignMode(String) {
 	var Left = "left";
 	var Right = "right";
 	var Top = "top";
@@ -1162,16 +1160,14 @@ abstract AlignMode(String) {
 	var HorizontalCenter = "horizontal center";
 }
 
-@:enum
-abstract ArrangeMode(String) {
+enum abstract ArrangeMode(String) {
 	var Back = "back";
 	var Backward = "backward";
 	var Forward = "forward";
 	var Front = "front";
 }
 
-@:enum
-abstract RegistrationPoint(String) {
+enum abstract RegistrationPoint(String) {
 	var TopLeft = "top left";
 	var TopConter = "top center";
 	var TopRight = "top right";
@@ -1183,8 +1179,7 @@ abstract RegistrationPoint(String) {
 	var BottomRight = "bottom right";
 }
 
-@:enum
-abstract DistributeMode(String) {
+enum abstract DistributeMode(String) {
 	var LeftEdge = "left edge";
 	var HorizontalCenter = "horizontal center";
 	var RightEdge = "right edge";
@@ -1193,14 +1188,12 @@ abstract DistributeMode(String) {
 	var BottomEdge = "bottom edge";
 }
 
-@:enum
-abstract EditMode(String) {
+enum abstract EditMode(String) {
 	var InPlace = "inPlace";
 	var NewWindow = "newWindow";
 }
 
-@:enum
-abstract PlayerVersion(String) {
+enum abstract PlayerVersion(String) {
 	var FlashLite = "FlashLite";
 	var FlashLite11 = "FlashLite11";
 	var FlashLite20 = "FlashLite20";

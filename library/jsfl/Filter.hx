@@ -98,8 +98,7 @@ typedef Filter =
 	var type : FilterType;
 }
 
-@:enum
-abstract FilterName(String) {
+enum abstract FilterName(String) {
 	var AdjustColorFilter = "adjustColorFilter";
 	var BevelFilter = "bevelFilter";
 	var BlurFilter = "blurFilter";
@@ -109,15 +108,13 @@ abstract FilterName(String) {
 	var GradientGlowFilter = "gradientGlowFilter";
 }
 
-@:enum
-abstract FilterType(String) {
+enum abstract FilterType(String) {
 	var Inner = "inner";
 	var Outer = "outer";
 	var Full = "full";
 }
 
-@:enum
-abstract FilterProperty(String) {
+enum abstract FilterProperty(String) {
 	var BlurX = "blurX";
 	var BlurY = "blurY";
 	var Quality = "quality";
@@ -132,8 +129,7 @@ abstract FilterProperty(String) {
 	var HighlightColor = "highlightColor";
 }
 
-@:enum
-abstract FilterQuality(String) {
+enum abstract FilterQuality(String) {
 	var Low = "low";
 	var Medium = "medium";
 	var High = "high";

@@ -14,8 +14,7 @@ typedef Instance =
 	var libraryItem : Item;
 }
 
-@:enum
-abstract InstanceType(String) {
+enum abstract InstanceType(String) {
 	var Symbol = "symbol";
 	var Bitmap = "bitmap";
 	var EmbeddedVideo = "embedded video";

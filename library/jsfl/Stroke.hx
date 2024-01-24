@@ -129,70 +129,61 @@ typedef Stroke =
 	var waveLength : StrokeWaveLength;
 }
 
-@:enum
-abstract StrokeCanType(String) {
+enum abstract StrokeCanType(String) {
 	var None = "none";
 	var Round = "round";
 	var Square = "square";
 }
 
-@:enum
-abstract StrokeCurve(String) {
+enum abstract StrokeCurve(String) {
 	var Straight = "straight";
 	var SlightCurve = "slight curve";
 	var MediumCurve = "medium curve";
 	var VeryCurved = "very curved";
 }
 
-@:enum
-abstract StrokeDensity(String) {
+enum abstract StrokeDensity(String) {
 	var VeryDense = "very dense";
 	var Dense = "dense";
 	var Sparse = "sparse";
 	var VerySparse = "very sparse";
 }
 
-@:enum
-abstract StrokeDotSize(String) {
+enum abstract StrokeDotSize(String) {
 	var Tiny = "tiny";
 	var Small = "small";
 	var Medium = "medium";
 	var Large = "large";
 }
 
-@:enum
-abstract StrokeHatchThickness(String) {
+enum abstract StrokeHatchThickness(String) {
 	var Hairline = "hairline";
 	var Thin = "thin";
 	var Medium = "medium";
 	var Thick = "thick";
 }
 
-@:enum
-abstract StrokeJiggle(String) {
+enum abstract StrokeJiggle(String) {
 	var None = "none";
 	var Bounce = "bounce";
 	var Loose = "loose";
 	var Wild = "wild";
 }
 
-@:enum
-abstract StrokeJoinType(String) {
+enum abstract StrokeJoinType(String) {
 	var Miter = "miter";
 	var Round = "round";
 	var Bevel = "bevel";
 }
 
-@:enum
-abstract StrokeLength(String) {
+enum abstract StrokeLength(String) {
 	var Equal = "equal";
 	var SlightVariation = "slight variation";
 	var MediumVariation = "medium variation";
 	var Random = "random";
 }
 
-@:enum
-abstract StrokePattern(String) {
+enum abstract StrokePattern(String) {
 	var Solid = "solid";
 	var Simple = "simple";
 	var Random = "random";
@@ -202,32 +193,28 @@ abstract StrokePattern(String) {
 	var RandomTripleDotted = "random triple dotted";
 }
 
-@:enum
-abstract StrokeRotate(String) {
+enum abstract StrokeRotate(String) {
 	var None = "none";
 	var Slight = "slight";
 	var Medium = "medium";
 	var Free = "free";
 }
 
-@:enum
-abstract StrokeScaleType(String) {
+enum abstract StrokeScaleType(String) {
 	var Normal = "normal";
 	var Horizonal = "horizontal";
 	var Vertical = "vertical";
 	var None = "none";
 }
 
-@:enum
-abstract StrokeSpace(String) {
+enum abstract StrokeSpace(String) {
 	var VeryClose = "very close";
 	var Close = "close";
 	var Distant = "distant";
 	var VeryDistant = "very distant";
 }
 
-@:enum
-abstract StrokeStyle(String) {
+enum abstract StrokeStyle(String) {
 	var NoStroke = "noStroke";
 	var Hairline = "hairline";
 	var Solid = "solid";
@@ -238,24 +225,21 @@ abstract StrokeStyle(String) {
 	var Hatched = "hatched";
 }
 
-@:enum
-abstract StrokeVariation(String) {
+enum abstract StrokeVariation(String) {
 	var OneSize = "one size";
 	var SmallVariation = "small variation";
 	var VariedSizes = "varied sizes";
 	var RandomSizes = "random sizes";
 }
 
-@:enum
-abstract StrokeWaveHeight(String) {
+enum abstract StrokeWaveHeight(String) {
 	var Flat = "flat";
 	var Wavy = "wavy";
 	var VeryWavy = "very wavy";
 	var Wild = "wild";
 }
 
-@:enum
-abstract StrokeWaveLength(String) {
+enum abstract StrokeWaveLength(String) {
 	var VeryShort = "very short";
 	var Short = "short";
 	var Medium = "medium";
