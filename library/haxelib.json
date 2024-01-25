@@ -4,8 +4,8 @@
   "tags": ["flash","extern"],
   "description": "Externs for the Flash jsfl API. This is improved version of the original plefferts's library (http://lib.haxe.org/legacy/p/jsfl).",
   "contributors": ["yar3333"],
-  "releasenote": "Frame.isEmpty fix (by slavara).",
-  "version": "1.2.4",
+  "releasenote": "haxe-4",
+  "version": "1.2.5",
   "url": "https://github.com/yar3333/haxe-jsfl",
   "dependencies": {}
 }
